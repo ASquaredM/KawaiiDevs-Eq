@@ -6,6 +6,8 @@ import sys
 from GetDataFromFile import getDataFromAFile
 import scipy
 import scipy.fftpack as fftpk
+import sounddevice as sd
+
 
 
 class ApplicationWindow(UI.Ui_MainWindow):
@@ -17,6 +19,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
         
         self.Open_File.clicked.connect(self.getData)
         self.Open_File.clicked.connect(self.graph)
+        self.PlaySound.clicked.connect(self.generateSound)
+        self.Pause.clicked.connect(self.pauseSound)
 
         
     def getData(self):
@@ -27,7 +31,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         if Output is None:
             pass
         else:
-            self.SampleRate,self.data=Output
+            self.data,self.SampleRate=Output
             print(self.FileName,self.SampleRate )
     
     def graph(self):
@@ -37,7 +41,17 @@ class ApplicationWindow(UI.Ui_MainWindow):
             FFT=abs(scipy.fft(self.data[:,1]))
             freqs =fftpk.fftfreq(len(FFT),(1.0/self.SampleRate))
             self.widget.plotItem.plot(freqs[range(len(FFT)//2)],FFT[range(len(FFT)//2)])
-            self.widget.plotItem.plot(plot)
+            #self.widget.plotItem.plot(plot)
+    
+    def generateSound(self):
+        if self.data is not None:
+            sd.play(self.data,self.SampleRate)
+            #print (sd.get_stream())
+            
+    def pauseSound(self):
+        if (self.data is not None):
+            sd.stop()
+            
         
 def main():
     app=QtWidgets.QApplication(sys.argv)

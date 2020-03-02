@@ -1,6 +1,8 @@
 import scipy.io as sio
 import scipy.io.wavfile as siowav
 import numpy as np
+import soundfile as sf
+
 
 def getDataFromAFile(filePath):
     filePath=filePath[0]
@@ -39,7 +41,8 @@ def txt(filename):
     return data
 
 def wav(filename):
-    data= siowav.read(filename)
+    #data= siowav.read(filename)
+    data=sf.read(filename, dtype='float32')
     return data
 
 def mp3(filename):

@@ -35,6 +35,20 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="PlaySound">
+            <property name="text">
+             <string>Play</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Pause">
+            <property name="text">
+             <string>Pause</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
