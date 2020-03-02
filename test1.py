@@ -19,7 +19,7 @@ def equalizer_10band (f, fs, gain1=0, gain2=0, gain3=0, gain4=0, gain5=0, gain6=
     return signal
 
 #read data and sampling freq
-samplerate, data = wav.read(r'C:\Users\ooo\Desktop\REPOGAMDA\clapping.wav')
+samplerate, data = wav.read(r'C:\Users\ooo\Desktop\REPOGAMDA\ok.wav')
 
 #create time array
 t  = np.arange(len(data))/samplerate 
@@ -29,7 +29,7 @@ f  = samplerate/len(data) * np.arange(len(data))
 f_data = np.fft.fft(data)/len(data)
 f_data=abs(f_data)
 #appying equalizer and change gain
-equalized= equalizer_10band(data, samplerate, 0,0,0,0,0,0,0,0,0,0)
+equalized= equalizer_10band(data, samplerate, 0,0,1000,0,0,0,0,0,0,0)
 t= t[0:len(equalized)]
 data= data[0:len(equalized)]
 
@@ -57,3 +57,4 @@ plt.xlim([0,5000])
 plt.legend()
 plt.tight_layout()
 plt.grid()
+#wave = wav.write("example5.wav", samplerate, equalized)
