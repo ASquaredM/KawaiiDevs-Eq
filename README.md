@@ -1,0 +1,3 @@
+# KawaiiDevs-Eq
+
+A basic sound equalizer project and signal viewer...
