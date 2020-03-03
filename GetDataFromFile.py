@@ -11,6 +11,7 @@ def getDataFromAFile(filePath):
     BegOfTheName= filePath.rfind('/')+1 
     LastOfTheName= filePath.rfind('.')
     filename=filePath[BegOfTheName:LastOfTheName] 
+    Path=filePath[:BegOfTheName]
     datatype = filePath[LastOfTheName+1:] #get the datatype from the filePath
     #making sure of the file type and read it#
     if(datatype=="txt" or datatype=="csv"):
@@ -26,7 +27,7 @@ def getDataFromAFile(filePath):
     elif(datatype=="snd"):
         data=mp3(filePath)  """
     #print(data[1])
-    return [data,filename]
+    return [data,filename,Path]
 
 def mat(filename):
     data=sio.loadmat(filename)
