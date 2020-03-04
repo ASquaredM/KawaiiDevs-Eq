@@ -13,6 +13,9 @@ import sounddevice as sd
 import cmath
 import Colors
 
+
+#WinFn(Win_Fn,freq,Bands,Gains,data)
+
 #Init a gain for each band
 Gains = np.ones([10])
 
@@ -30,12 +33,10 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def __init__(self,mainWindow):
         super(ApplicationWindow,self).setupUi(mainWindow)
         
-        self.oneChannelData=None
         self.FileName=None
         self.Path=None
-        self.FFT=None
         self.freqs=None 
-        self.data=None
+        self.FFTdata=None
         self.SampleRate=None
 
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -44,22 +45,37 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.PauseButton.clicked.connect(self.pauseSound)
         self.SaveButton.clicked.connect(self.saveSoundFile)
         self.CompareButton.clicked.connect(self.compareToAFile)
-        self.ClearComparedButton.clicked.connect(self.ClearComparedButton)
+        self.ClearComparedButton.clicked.connect(self.clearCompared)
+
+        self.sliders=[
+            self.Band1Slider,
+            self.Band2Slider,
+            self.Band3Slider,
+            self.Band4Slider,
+            self.Band5Slider,
+            self.Band6Slider,
+            self.Band7Slider,
+            self.Band8Slider,
+            self.Band9Slider,
+            self.Band10Slider
+        ]
+        
 
     def OpenFile(self):
-        [self.data,self.freqs,self.SampleRate,self.FileName,self.Path]= self.getData()
+        Output = self.getData()
+        if Output is not None:
+            [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]= Output
 
     def getData(self):
-
-        if self.data is not None:
+        #to stop playing the old music#
+        if self.FFTdata is not None:
             sd.stop()
         #get the file and read it#
         filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;" " *.mp3;;" "*.snd")
         dataFromTheFile=getDataFromAFile(filePath)
-        Output,FileName,Path = dataFromTheFile if dataFromTheFile is not None  else  [None,self.FileName,self.Path]
-        if Output is not None:
+        if dataFromTheFile is not None:
+            Output,FileName,Path = dataFromTheFile if dataFromTheFile is not None  else  [None,self.FileName,self.Path]
             nChannelData,SampleRate=Output
-            print(isinstance( nChannelData[0] ,np.ndarray))
             if  isinstance(nChannelData[0] ,np.ndarray):
                 oneChannelData=nChannelData[:,0]
             else:
@@ -68,43 +84,50 @@ class ApplicationWindow(UI.Ui_MainWindow):
             freqs =fftpk.fftfreq(len(FFTData),(1.0/SampleRate))
             print(FFTData,freqs,SampleRate,FileName,Path)
             return FFTData,freqs,SampleRate,FileName,Path
+        else:
+            return None
 
     def graphMainData(self):
-        if self.data is not None:
-            self.graph(self.data,self.freqs,Colors.white)
+        if self.FFTdata is not None:
+            self.graph(self.FFTdata,self.freqs,Colors.white)
 
     def graph(self,data,freqs,color):
-        if self.data is not None:
+        if self.FFTdata is not None:
             self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
     
     
     def generateSound(self):
-        if self.data is not None:
-            generatedAudio=np.real(fftpk.ifft(self.data))
+        if self.FFTdata is not None:
+            generatedAudio=np.real(fftpk.ifft(self.FFTdata))
             sd.play(generatedAudio,self.SampleRate)
             
     def pauseSound(self):
-        if (self.data is not None):
+        if (self.FFTdata is not None):
             sd.stop()
     
     def saveSoundFile(self):
-        if self.data is not None:
-            GenratedAudio=np.real(fftpk.ifft(self.data))
+        if self.FFTdata is not None:
+            GenratedAudio=np.real(fftpk.ifft(self.FFTdata))
             SavedData=GenratedAudio
             name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.Path+".wav")[0]
             print(name,self.SampleRate,SavedData)
             sio.wavfile.write(name, self.SampleRate, SavedData)
 
     def compareToAFile(self):
-        if self.data is not None:
+        if self.FFTdata is not None:
             [data,freqs,SampleRate,FileName,Path]= self.getData()
             self.graph(data,freqs,color=Colors.red)
             self.graphMainData()
     
     def clearCompared(self):
-        if self.data is not None:
+        if self.FFTdata is not None:
             self.widget.plotItem.clear()
-            self.widget.plotItem.plot(self.freqs[range(len(self.data)//2)],abs(self.data[range(len(self.data)//2)]),pen =Colors.white )
+            self.graphMainData()
+
+    """def ChangeSlider(self):
+        if self.data is not None:"""
+            
+            
 
             
             

@@ -70,6 +70,25 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QComboBox" name="comboBox">
+            <item>
+             <property name="text">
+              <string>Rectangular</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hamming</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Hanning</string>
+             </property>
+            </item>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -77,7 +96,7 @@
           <item>
            <widget class="QPushButton" name="OnOff">
             <property name="text">
-             <string>ON/OFF</string>
+             <string>ON</string>
             </property>
            </widget>
           </item>
@@ -88,12 +107,12 @@
               <item>
                <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>25 Hz</string>
+                 <string>30 Hz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider">
+               <widget class="QSlider" name="Band1Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -109,12 +128,12 @@
               <item>
                <widget class="QLabel" name="label_5">
                 <property name="text">
-                 <string>2 KHz</string>
+                 <string>60 Hz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_5">
+               <widget class="QSlider" name="Band2Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -130,12 +149,12 @@
               <item>
                <widget class="QLabel" name="label_6">
                 <property name="text">
-                 <string>4 KHz</string>
+                 <string>120 Hz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_6">
+               <widget class="QSlider" name="Band3Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -151,12 +170,12 @@
               <item>
                <widget class="QLabel" name="label_8">
                 <property name="text">
-                 <string>6 KHz</string>
+                 <string>230 Hz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_8">
+               <widget class="QSlider" name="Band4Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -172,12 +191,12 @@
               <item>
                <widget class="QLabel" name="label_11">
                 <property name="text">
-                 <string>8 KHz</string>
+                 <string>450 Hz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_11">
+               <widget class="QSlider" name="Band5Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -193,12 +212,12 @@
               <item>
                <widget class="QLabel" name="label_10">
                 <property name="text">
-                 <string>10 KHz</string>
+                 <string>900 KHz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_10">
+               <widget class="QSlider" name="Band6Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -214,12 +233,12 @@
               <item>
                <widget class="QLabel" name="label_9">
                 <property name="text">
-                 <string>12 KHz</string>
+                 <string>1.8 KHz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_9">
+               <widget class="QSlider" name="Band7Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -235,12 +254,12 @@
               <item>
                <widget class="QLabel" name="label_4">
                 <property name="text">
-                 <string>14 KHz</string>
+                 <string>3.7 KHz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_4">
+               <widget class="QSlider" name="Band8Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -256,12 +275,12 @@
               <item>
                <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>16 KHz</string>
+                 <string>7.5 KHz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_7">
+               <widget class="QSlider" name="Band9Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -280,12 +299,12 @@
                  <string notr="true"/>
                 </property>
                 <property name="text">
-                 <string>18 KHz</string>
+                 <string>15 KHz</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="verticalSlider_3">
+               <widget class="QSlider" name="Band10Slider">
                 <property name="styleSheet">
                  <string notr="true">margin:auto;</string>
                 </property>
@@ -297,28 +316,7 @@
              </layout>
             </item>
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_16">
-              <item>
-               <widget class="QLabel" name="label_12">
-                <property name="styleSheet">
-                 <string notr="true"/>
-                </property>
-                <property name="text">
-                 <string>20 KHz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="verticalSlider_12">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <layout class="QVBoxLayout" name="verticalLayout_16"/>
             </item>
            </layout>
           </item>
