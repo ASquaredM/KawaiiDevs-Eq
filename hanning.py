@@ -11,7 +11,7 @@ def bands_1(data,freq,gain1):
                 #get location of wanted element
                 highcut = freq.index(500)
                 #multiple the data from beginning "or lowcut" to our highcut in humming func and gain then connect the rest of data to have original array but modified in one band and 0 in other bands
-                data = np.concatenate(0*data[:highcut+2] *np.hamming(highcut +2)*gain1,0* data[highcut+3:])
+                data = np.concatenate(data[:highcut+2] *np.hanning(highcut +2)*gain1, 0*data[highcut+3:])
             else:
                 break
     return data
@@ -26,7 +26,7 @@ def bands_2(data,freq,gain2):
                 freq = list(freq)
                 lowcut = freq.index(200)
                 highcut = freq.index(500)
-                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2, 0*data[highcut+3:])
+                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2,0* data[highcut+3:])
             else:
                 break   
     return data
@@ -40,7 +40,7 @@ def bands_3(data,freq,gain3):
                 freq = list(freq)
                 lowcut = freq.index(501)
                 highcut = freq.index(2000)
-                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2,0* data[highcut+3:])
+                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2,0* data[highcut+3:])
             else:
                 break   
     return data
@@ -54,7 +54,7 @@ def bands_4(data,freq,gain4):
                 freq = list(freq)
                 lowcut = freq.index(2001)
                 highcut = freq.index(3000)
-                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2, 0*data[highcut+3:])
+                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2, 0* data[highcut+3:])
             else:
                 break
     return data
@@ -70,7 +70,7 @@ def bands_5(data,freq,gain5):
             lowcut = freq.index(3001)
             highcut = freq.index(5000)
             if (3001 or 5000) in freq:
-                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2, 0* data[highcut+3:])
+                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2, 0*data[highcut+3:])
             else:
                 break
     return data
@@ -84,7 +84,7 @@ def bands_6(data,freq,gain6):
                 freq = list(freq)
                 lowcut = freq.index(5001)
                 highcut = freq.index(7000)
-                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2, 0* data[highcut+3:])
+                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2, 0*data[highcut+3:])
             else:
                 break
     return data
@@ -98,7 +98,7 @@ def bands_7(data,freq,gain7):
                 freq = list(freq)
                 lowcut = freq.index(7001)
                 highcut = freq.index(9000)
-                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2,0* data[highcut+3:])
+                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2,0* data[highcut+3:])
             else:
                 break
     return data
@@ -112,7 +112,7 @@ def bands_8(data,freq,gain8):
             freq = list(freq)
             lowcut = freq.index(9001)
             highcut = freq.index(12000)
-            data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2,0* data[highcut+3:])
+            data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2, 0*data[highcut+3:])
         else:
             break
     return data
@@ -126,7 +126,7 @@ def bands_9(data,freq,gain9):
             freq = list(freq)
             lowcut = freq.index(12001)
             highcut = freq.index(17000)
-            data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2,0* data[highcut+3:])
+            data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2, 0*data[highcut+3:])
         else:
             break    
     return data
@@ -140,7 +140,7 @@ def bands_10(data,freq,gain10):
                 freq = list(freq)
                 lowcut = freq.index(17001)
                 highcut = freq.index(20000)
-                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hamming(highcut +2)*gain2, 0*data[highcut+3:])
+                data = np.concatenate(0*data[:lowcut-3],data[lowcut-2:highcut+2] *np.hanning(highcut +2)*gain2,0* data[highcut+3:])
             else:
                 break
     return data
