@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 ./__pycache__/*
 
+#my test files
+.untitled.ui 
+.untitled.py
+
 # C extensions
 *.so
 
