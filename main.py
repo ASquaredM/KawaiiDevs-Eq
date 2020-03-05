@@ -91,8 +91,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def graph(self,data,freqs,color):
         if self.FFTdata is not None:
             self.widget.plotItem.clear()
-           #self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
-            self.widget.plotItem.plot(freqs,abs(data),pen =color)
+            self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
+            #self.widget.plotItem.plot(freqs,abs(data),pen =color)
 
 
     def generateSound(self):
