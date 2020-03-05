@@ -1,7 +1,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 import UI
 import wave
 #import untitled
@@ -13,7 +17,11 @@ import sys
 from GetDataFromFile import getDataFromAFile
 =======
 from GetDataFromFile import getWavData
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 import scipy
 import scipy.io as sio
 import scipy.fftpack as fftpk
@@ -25,10 +33,15 @@ from PopUpWindowClass import BuildPopUpWindow
 =======
 from PopUpWindowClass import Ui_PopUpWindow
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
 =======
 from WinFns import WinFn
 >>>>>>> 33d840c... master
+=======
+from WinFns import WinFn
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 #import 
 
 #WinFn(Win_Fn,freq,Bands,Gains,data)
@@ -38,7 +51,11 @@ from WinFns import WinFn
 Gains = [0,0,0,0,0,0,0,0,0,0]
 =======
 Gains = np.ones(10)
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 #Freq. Spectrum Division (Setting Bands)
 Bands = np.array([[20,40],[40,80],[80,160]
@@ -75,7 +92,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
         self.SavedData1=None
         self.SavedData2=None
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -88,7 +109,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
         #self.CompareButton.clicked.connect(self.compareToAFile)
         #self.ClearComparedButton.clicked.connect(self.clearCompared)
 =======
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
         self.OnOff.clicked.connect(self.slidersChangeState)
 
     def OpenFile(self):
@@ -100,11 +125,15 @@ class ApplicationWindow(UI.Ui_MainWindow):
             print(self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path)
 =======
             self.UpdateMainData()
+<<<<<<< HEAD
 
 <<<<<<< HEAD
     def UpdateMainData(self):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
 >>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 =======
 >>>>>>> 33d840c... master
@@ -132,10 +161,17 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
         #get the Data#
         return getWavData()
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
 
     def UpdateMainData(self):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+=======
+
+    def UpdateMainData(self):
+        self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
     def graphMainData(self):
         if self.FFTdata is not None:
@@ -193,7 +229,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.mainWindow=QtWidgets.QMainWindow()
             self.PopUp = Ui_PopUpWindow(self.mainWindow,self.MainData,self.SavedData1,self.SavedData2)
             self.mainWindow.show()
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 
 
@@ -226,8 +266,16 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.sliders[8].valueChanged.connect(lambda :self.edittingSliderValue(8))
         self.sliders[9].valueChanged.connect(lambda :self.edittingSliderValue(9))
 
+<<<<<<< HEAD
         self.ApplyEqualizerButton.clicked.connect(self.ApplyEqualizer)
 
+=======
+<<<<<<< HEAD
+=======
+        self.ApplyEqualizerButton.clicked.connect(self.ApplyEqualizer)
+
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
         
         for numberOfBand in range(0,10):
             self.sliders[numberOfBand].setRange(0,100)
@@ -241,32 +289,56 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setEnabled(True)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
                 windowMode=Win_Fn[self.WindowMode.currentIndex()]
                 print(windowMode)
 <<<<<<< HEAD
                 self.WindowMode.setDisabled(True)
 =======
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
 =======
 >>>>>>> 33d840c... master
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
                 self.slidersEnable=True
                 self.OnOff.setText("OFF")
             else:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setDisabled(True)
                     self.sliders[numberOfBand].setValue(50)
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                self.WindowMode.setEnabled(True)
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
 
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
     def ApplyEqualizer(self):
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
         self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
         self.UpdateMainData()
         
         
+<<<<<<< HEAD
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
         
 def main():
@@ -397,5 +469,10 @@ if __name__ == "__main__":
 =======
 >>>>>>> bc6ab04fc484c6229c2a55bbcecb90bfb2b0e707
 =======
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
 >>>>>>> b8a63c7... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> e17ad2f... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
