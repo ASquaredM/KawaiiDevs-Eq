@@ -2,7 +2,8 @@ import scipy.io as sio
 import scipy.io.wavfile as siowav
 import numpy as np
 import soundfile as sf
-
+import scipy.fftpack as fftpk
+from PyQt5 import QtWidgets, QtCore
 
 def getDataFromAFile(filePath):
     filePath=filePath[0]
@@ -50,3 +51,22 @@ def mp3(filename):
     pass
 def snd(filename):
     pass
+
+
+def getWavData():
+    #get the file and read it#
+    filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;" " *.mp3;;" "*.snd")
+    dataFromTheFile=getDataFromAFile(filePath)
+    if dataFromTheFile is not None:
+        Output,FileName,Path = dataFromTheFile
+        nChannelData,SampleRate=Output
+        if  isinstance(nChannelData[0] ,np.ndarray):
+            oneChannelData=nChannelData[:,0]
+        else:
+            oneChannelData=nChannelData
+        FFTData=fftpk.fft(oneChannelData)
+        freqs =fftpk.fftfreq(len(FFTData),(1.0/SampleRate))
+        print(FFTData,freqs,SampleRate,FileName,Path)
+        return FFTData,freqs,SampleRate,FileName,Path
+    else:
+        return None
