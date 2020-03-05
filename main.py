@@ -13,6 +13,7 @@ import sounddevice as sd
 import cmath
 import Colors
 from PopUpWindowClass import Ui_PopUpWindow
+from WinFns import WinFn
 #import 
 
 #WinFn(Win_Fn,freq,Bands,Gains,data)
@@ -67,15 +68,15 @@ class ApplicationWindow(UI.Ui_MainWindow):
             [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]= Output
             self.UpdateMainData()
 
-    def UpdateMainData(self):
-        self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
-
     def getData(self):
         #to stop playing the old music#
         if self.FFTdata is not None:
             sd.stop()
         #get the Data#
         return getWavData()
+
+    def UpdateMainData(self):
+        self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
 
     def graphMainData(self):
         if self.FFTdata is not None:
@@ -147,6 +148,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.sliders[8].valueChanged.connect(lambda :self.edittingSliderValue(8))
         self.sliders[9].valueChanged.connect(lambda :self.edittingSliderValue(9))
 
+        self.ApplyEqualizerButton.clicked.connect(self.ApplyEqualizer)
+
         
         for numberOfBand in range(0,10):
             self.sliders[numberOfBand].setRange(0,100)
@@ -159,21 +162,24 @@ class ApplicationWindow(UI.Ui_MainWindow):
             if self.slidersEnable==False:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setEnabled(True)
-                windowMode=Win_Fn[self.WindowMode.currentIndex()]
-                print(windowMode)
                 self.slidersEnable=True
                 self.OnOff.setText("OFF")
             else:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setDisabled(True)
                     self.sliders[numberOfBand].setValue(50)
-                self.WindowMode.setEnabled(True)
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
 
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
 
+    def ApplyEqualizer(self):
+        windowMode=Win_Fn[self.WindowMode.currentIndex()]
+        self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
+        self.UpdateMainData()
+        
+        
 
         
 def main():
