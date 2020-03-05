@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 71640f8... Update
 import UI
 import wave
 #import untitled
@@ -6,20 +9,33 @@ from PyQt5 import QtWidgets, QtCore
 from pyqtgraph.Qt import QtGui, QtCore
 import numpy as np
 import sys
+<<<<<<< HEAD
 from GetDataFromFile import getDataFromAFile
+=======
+from GetDataFromFile import getWavData
+>>>>>>> 71640f8... Update
 import scipy
 import scipy.io as sio
 import scipy.fftpack as fftpk
 import sounddevice as sd
 import cmath
 import Colors
+<<<<<<< HEAD
 from PopUpWindowClass import BuildPopUpWindow
+=======
+from PopUpWindowClass import Ui_PopUpWindow
+from WinFns import WinFn
+>>>>>>> 71640f8... Update
 #import 
 
 #WinFn(Win_Fn,freq,Bands,Gains,data)
 
 #Init a gain for each band
+<<<<<<< HEAD
 Gains = [0,0,0,0,0,0,0,0,0,0]
+=======
+Gains = np.ones(10)
+>>>>>>> 71640f8... Update
 
 #Freq. Spectrum Division (Setting Bands)
 Bands = np.array([[20,40],[40,80],[80,160]
@@ -50,8 +66,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.FFTdata=None
         self.SampleRate=None
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+<<<<<<< HEAD
         self.SavedData1=[]
         self.SavedData2=[]
+=======
+        self.SavedData1=None
+        self.SavedData2=None
+>>>>>>> 71640f8... Update
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -60,21 +81,29 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.PauseButton.clicked.connect(self.pauseSound)
         self.SaveButton.clicked.connect(self.saveSoundFile)
         self.CompareButton.clicked.connect(self.OpenPopUpWindow)
+<<<<<<< HEAD
         #self.CompareButton.clicked.connect(self.compareToAFile)
         #self.ClearComparedButton.clicked.connect(self.clearCompared)
+=======
+>>>>>>> 71640f8... Update
         self.OnOff.clicked.connect(self.slidersChangeState)
 
     def OpenFile(self):
         Output = self.getData()
         if Output is not None:
             [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]= Output
+<<<<<<< HEAD
             print(self.MainData)
             print(self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path)
+=======
+            self.UpdateMainData()
+>>>>>>> 71640f8... Update
 
     def getData(self):
         #to stop playing the old music#
         if self.FFTdata is not None:
             sd.stop()
+<<<<<<< HEAD
         #get the file and read it#
         filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;" " *.mp3;;" "*.snd")
         dataFromTheFile=getDataFromAFile(filePath)
@@ -91,6 +120,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
             return FFTData,freqs,SampleRate,FileName,Path
         else:
             return None
+=======
+        #get the Data#
+        return getWavData()
+
+    def UpdateMainData(self):
+        self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+>>>>>>> 71640f8... Update
 
     def graphMainData(self):
         if self.FFTdata is not None:
@@ -125,6 +161,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 self.SavedData2=self.MainData
 
     def OpenPopUpWindow(self):
+<<<<<<< HEAD
         BuildPopUpWindow(self.MainData,self.SavedData1,self.SavedData2)
         
 
@@ -141,6 +178,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
         if self.FFTdata is not None:
             self.widget.plotItem.clear()
             self.graphMainData()
+=======
+        if self.FFTdata is not None:
+            print("Opening a new popup window...")
+            self.mainWindow=QtWidgets.QMainWindow()
+            self.PopUp = Ui_PopUpWindow(self.mainWindow,self.MainData,self.SavedData1,self.SavedData2)
+            self.mainWindow.show()
+>>>>>>> 71640f8... Update
 
 
 
@@ -173,6 +217,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.sliders[8].valueChanged.connect(lambda :self.edittingSliderValue(8))
         self.sliders[9].valueChanged.connect(lambda :self.edittingSliderValue(9))
 
+<<<<<<< HEAD
+=======
+        self.ApplyEqualizerButton.clicked.connect(self.ApplyEqualizer)
+
+>>>>>>> 71640f8... Update
         
         for numberOfBand in range(0,10):
             self.sliders[numberOfBand].setRange(0,100)
@@ -185,22 +234,37 @@ class ApplicationWindow(UI.Ui_MainWindow):
             if self.slidersEnable==False:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setEnabled(True)
+<<<<<<< HEAD
                 windowMode=Win_Fn[self.WindowMode.currentIndex()]
                 print(windowMode)
                 self.WindowMode.setDisabled(True)
+=======
+>>>>>>> 71640f8... Update
                 self.slidersEnable=True
                 self.OnOff.setText("OFF")
             else:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setDisabled(True)
                     self.sliders[numberOfBand].setValue(50)
+<<<<<<< HEAD
                 self.WindowMode.setEnabled(True)
+=======
+>>>>>>> 71640f8... Update
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
 
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
 
+<<<<<<< HEAD
+=======
+    def ApplyEqualizer(self):
+        windowMode=Win_Fn[self.WindowMode.currentIndex()]
+        self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
+        self.UpdateMainData()
+        
+        
+>>>>>>> 71640f8... Update
 
         
 def main():
@@ -213,6 +277,7 @@ def main():
 if __name__ == "__main__":
     main()
 
+<<<<<<< HEAD
 =======
 import UI
 import wave
@@ -325,4 +390,10 @@ def main():
     
 if __name__ == "__main__":
     main()
+<<<<<<< HEAD
 >>>>>>> ecea9d24070069505abe79de933e20b8b917f113
+=======
+>>>>>>> bc6ab04fc484c6229c2a55bbcecb90bfb2b0e707
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> e17ad2f... Update
