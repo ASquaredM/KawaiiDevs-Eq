@@ -1,74 +1,96 @@
 import numpy as np
+"""
+freq = np.arange(20,5000)
+Gains = [1,1,0,1,0,1,0,0,0,0]
+Bands = np.array([[20,40],[40,80],[80,160]
+                    ,[160,300],[300,600],[600,1200]
+                    ,[1200,2400],[2400,5000],[5000,10000]
+                    ,[10000,20000]])
+data = np.arange(20,5000)
+Win_Fn = np.array(['Rectangular','Hamming','Hanning'])
+"""
 
 def WinFn(Win_Fn,freq,Bands,Gains,data):
-    Win_data = np.zeros(len(freq))
     if Win_Fn == 'Rectangular':
         Win_data=Rec_Fn(data,freq,Bands,Gains)
     elif Win_Fn == 'Hamming':
         Win_data=Ham_Fn(data,freq,Bands,Gains)
     elif Win_Fn == 'Hanning':
         Win_data=Han_Fn(data,freq,Bands,Gains)
+    return Win_data
 
 def Rec_Fn(data,freq,Bands,Gains):
     len_freq = len(freq)
-    Win_data = np.zeros(0)
+    Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
     while itr_outer < 9:
         itr_inner = 0
-        Win_Fn_Arr = np.zeros(len_freq)
+        Win_Fn_Arr = np.zeros(len_freq,dtype=complex)
         while itr_inner < len_freq:
-            if (freq[itr_inner] >= Bands[itr_outer][0] and freq[itr_inner] <= Bands[itr_outer][0] ):
+            if ((freq[itr_inner] >= Bands[itr_outer][0]) and (freq[itr_inner] <= Bands[itr_outer][1]) ) :
                 Win_Fn_Arr[itr_inner] = 1
             else:
                 Win_Fn_Arr[itr_inner] = 0
             itr_inner+=1
             
-        Win_data += Win_Fn_Arr*data*Gains[itr_outer]
+        Win_data += np.array(Win_Fn_Arr,dtype=complex)*np.array(data,dtype=complex)*Gains[itr_outer]
         itr_outer += 1
     return Win_data
 
 
 def Ham_Fn(data,freq,Bands,Gains):
     len_freq = len(freq)
-    Win_data = np.zeros(0)
+    Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
+    out_data = np.zeros(0,dtype=complex)
     while itr_outer < 9:
-        itr_inner = 0
         if (Bands[itr_outer][0] or Bands[itr_outer][1]) in freq:
-            #convert array to list for easy access to location of wanted element
-            freq_list = list(freq)
-            #get location of wanted element
-            lowcut = freq_list.index(Bands[itr_outer][0])
-            highcut = freq_list.index(Bands[itr_outer][1])
-            Hamm_Arr_Size = 2 * (highcut - lowcut)
-            Offset = abs(int(lowcut - ((0.25) * Hamm_Arr_Size)))
-            Hamm_Fn_Arr = np.concatenate((np.zeros(Offset),np.hamming(Hamm_Arr_Size)
-                            ,np.zeros(len_freq - Hamm_Arr_Size - Offset)),axis=0,out=None)
-            #multiple the data from beginning "or lowcut" to our highcut in humming func and gain then connect the rest of data to have original array but modified in one band and 0 in other bands
-            out_data = data*Hamm_Fn_Arr*Gains[itr_inner]
+            #print('Band',itr_outer,Gains[itr_outer])
+            Hamm_Arr_Size = 2 * ((Bands[itr_outer][1]) - (Bands[itr_outer][0]))
+            Offset = abs(int((Bands[itr_outer][0]) - ((0.25) * Hamm_Arr_Size)))
+            Shaper_Arr = np.zeros(0,dtype=complex)
+            Shaper_Arr_Size = len_freq - Hamm_Arr_Size - Offset
+            #print(Hamm_Arr_Size)
+            #print(Offset)
+            #print(Shaper_Arr_Size)
+            if Shaper_Arr_Size > 0 :
+                Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
+                Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),np.hamming(Hamm_Arr_Size),Shaper_Arr),axis=0),dtype=complex)
+            else :
+                Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hamming(Hamm_Arr_Size)),axis=0),dtype=complex)
+            #print(len(Hamm_Fn_Arr))
+            out_data = np.array(data,dtype=complex)*Hamm_Fn_Arr[0:(len_freq)]*Gains[itr_outer]
+            #print(out_data[Bands[itr_outer][0]:Bands[itr_outer][1]+ 50])
+        else :
+            break
         Win_data += out_data
-        itr_outer += 1
-        
+        itr_outer += 1   
     return Win_data
 
 def Han_Fn(data,freq,Bands,Gains):
     len_freq = len(freq)
-    Win_data = np.zeros(0)
+    Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
     while itr_outer < 9:
-        itr_inner = 0
-        if (Bands[itr_outer][0] or Bands[itr_outer][1]) in freq:
-            #convert array to list for easy access to location of wanted element
-            freq_list = list(freq)
-            #get location of wanted element
-            lowcut = freq_list.index(Bands[itr_outer][0])
-            highcut = freq_list.index(Bands[itr_outer][1])
-            Hunn_Arr_Size = 2 * (highcut - lowcut)
-            Offset = abs(int(lowcut - ((0.25) * Hunn_Arr_Size)))
-            Hunn_Fn_Arr = np.concatenate((np.zeros(Offset),np.hanning(Hunn_Arr_Size)
-                            ,np.zeros(len_freq - Hunn_Arr_Size - Offset)),axis=0,out=None)
-            #multiple the data from beginning "or lowcut" to our highcut in humming func and gain then connect the rest of data to have original array but modified in one band and 0 in other bands
-            out_data = data*Hunn_Fn_Arr*Gains[itr_inner]
+        if (Bands[itr_outer][0] and Bands[itr_outer][1]) in freq:
+            #print('Band',itr_outer,Gains[itr_outer])
+            Hann_Arr_Size = 2 * (Bands[itr_outer][1] - Bands[itr_outer][0])
+            Offset = abs(int(Bands[itr_outer][0] - ((0.25) * Hann_Arr_Size)))
+            Shaper_Arr = np.zeros(0,dtype=complex)
+            Shaper_Arr_Size = len_freq - Hann_Arr_Size - Offset
+            #print(Hunn_Arr_Size)
+            #print(Offset)
+            #print(Shaper_Arr_Size)
+            if Shaper_Arr_Size > 0 :
+                Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
+                Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hanning(Hann_Arr_Size),Shaper_Arr),axis=0),dtype=complex)
+            else :
+                Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hanning(Hann_Arr_Size)),axis=0),dtype=complex)
+            #print(len(Hunn_Fn_Arr))
+            out_data = np.array(data,dtype=complex)*Hann_Fn_Arr*Gains[itr_outer]
+            #print(out_data[Bands[itr_outer][0]:Bands[itr_outer][1]+ 50])
+        else :
+            break
         Win_data += out_data
         itr_outer += 1
         
