@@ -32,9 +32,45 @@
        </layout>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="LoadFiletoWidget1Button">
+          <property name="text">
+           <string>Load A File</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ClearWidget1Button">
+          <property name="text">
+           <string>Clear Plot</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="PlotWidget" name="SavedData2Widget" native="true"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="LoadFiletoWidget2Button">
+          <property name="text">
+           <string>Load A File</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ClearWidget2Button">
+          <property name="text">
+           <string>Clear Plot</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

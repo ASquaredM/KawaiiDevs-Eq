@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ef09d7a... PopUp Functions
 import UI
 import wave
 #import untitled
@@ -6,20 +9,32 @@ from PyQt5 import QtWidgets, QtCore
 from pyqtgraph.Qt import QtGui, QtCore
 import numpy as np
 import sys
+<<<<<<< HEAD
 from GetDataFromFile import getDataFromAFile
+=======
+from GetDataFromFile import getWavData
+>>>>>>> ef09d7a... PopUp Functions
 import scipy
 import scipy.io as sio
 import scipy.fftpack as fftpk
 import sounddevice as sd
 import cmath
 import Colors
+<<<<<<< HEAD
 from PopUpWindowClass import BuildPopUpWindow
+=======
+from PopUpWindowClass import Ui_PopUpWindow
+>>>>>>> ef09d7a... PopUp Functions
 #import 
 
 #WinFn(Win_Fn,freq,Bands,Gains,data)
 
 #Init a gain for each band
+<<<<<<< HEAD
 Gains = [0,0,0,0,0,0,0,0,0,0]
+=======
+Gains = np.ones(10)
+>>>>>>> ef09d7a... PopUp Functions
 
 #Freq. Spectrum Division (Setting Bands)
 Bands = np.array([[20,40],[40,80],[80,160]
@@ -50,8 +65,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.FFTdata=None
         self.SampleRate=None
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+<<<<<<< HEAD
         self.SavedData1=[]
         self.SavedData2=[]
+=======
+        self.SavedData1=None
+        self.SavedData2=None
+>>>>>>> ef09d7a... PopUp Functions
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -60,21 +80,32 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.PauseButton.clicked.connect(self.pauseSound)
         self.SaveButton.clicked.connect(self.saveSoundFile)
         self.CompareButton.clicked.connect(self.OpenPopUpWindow)
+<<<<<<< HEAD
         #self.CompareButton.clicked.connect(self.compareToAFile)
         #self.ClearComparedButton.clicked.connect(self.clearCompared)
+=======
+>>>>>>> ef09d7a... PopUp Functions
         self.OnOff.clicked.connect(self.slidersChangeState)
 
     def OpenFile(self):
         Output = self.getData()
         if Output is not None:
             [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]= Output
+<<<<<<< HEAD
             print(self.MainData)
             print(self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path)
+=======
+            self.UpdateMainData()
+
+    def UpdateMainData(self):
+        self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+>>>>>>> ef09d7a... PopUp Functions
 
     def getData(self):
         #to stop playing the old music#
         if self.FFTdata is not None:
             sd.stop()
+<<<<<<< HEAD
         #get the file and read it#
         filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;" " *.mp3;;" "*.snd")
         dataFromTheFile=getDataFromAFile(filePath)
@@ -91,6 +122,10 @@ class ApplicationWindow(UI.Ui_MainWindow):
             return FFTData,freqs,SampleRate,FileName,Path
         else:
             return None
+=======
+        #get the Data#
+        return getWavData()
+>>>>>>> ef09d7a... PopUp Functions
 
     def graphMainData(self):
         if self.FFTdata is not None:
@@ -125,6 +160,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 self.SavedData2=self.MainData
 
     def OpenPopUpWindow(self):
+<<<<<<< HEAD
         BuildPopUpWindow(self.MainData,self.SavedData1,self.SavedData2)
         
 
@@ -141,6 +177,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
         if self.FFTdata is not None:
             self.widget.plotItem.clear()
             self.graphMainData()
+=======
+        if self.FFTdata is not None:
+            print("Opening a new popup window...")
+            self.mainWindow=QtWidgets.QMainWindow()
+            self.PopUp = Ui_PopUpWindow(self.mainWindow,self.MainData,self.SavedData1,self.SavedData2)
+            self.mainWindow.show()
+>>>>>>> ef09d7a... PopUp Functions
 
 
 
@@ -187,7 +230,10 @@ class ApplicationWindow(UI.Ui_MainWindow):
                     self.sliders[numberOfBand].setEnabled(True)
                 windowMode=Win_Fn[self.WindowMode.currentIndex()]
                 print(windowMode)
+<<<<<<< HEAD
                 self.WindowMode.setDisabled(True)
+=======
+>>>>>>> ef09d7a... PopUp Functions
                 self.slidersEnable=True
                 self.OnOff.setText("OFF")
             else:
@@ -213,6 +259,7 @@ def main():
 if __name__ == "__main__":
     main()
 
+<<<<<<< HEAD
 =======
 import UI
 import wave
@@ -325,4 +372,10 @@ def main():
     
 if __name__ == "__main__":
     main()
+<<<<<<< HEAD
 >>>>>>> ecea9d24070069505abe79de933e20b8b917f113
+=======
+>>>>>>> bc6ab04fc484c6229c2a55bbcecb90bfb2b0e707
+=======
+>>>>>>> ef09d7a... PopUp Functions
+>>>>>>> b8a63c7... PopUp Functions
