@@ -269,7 +269,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.Band9Slider,
             self.Band10Slider
         ]
-
+        self.WindowMode.setDisabled(True)
+        self.ApplyEqualizerButton.setDisabled(True)
         self.slidersEnable=False
         self.OnOff.setText("ON")
 
@@ -324,18 +325,29 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> 71640f8... Update
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
                 self.slidersEnable=True
+                self.WindowMode.setEnabled(True)
+                self.ApplyEqualizerButton.setEnabled(True)
                 self.OnOff.setText("OFF")
             else:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setDisabled(True)
                     self.sliders[numberOfBand].setValue(50)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
                 self.WindowMode.setEnabled(True)
 =======
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+                self.WindowMode.setDisabled(True)
+                self.ApplyEqualizerButton.setDisabled(True)
+>>>>>>> 4b290cf... push
+>>>>>>> 139670e... push
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
 
