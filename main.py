@@ -52,6 +52,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
         self.SavedData1=None
         self.SavedData2=None
+        self.OpenedData=None
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -67,6 +68,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         if Output is not None:
             [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]= Output
             self.UpdateMainData()
+            self.OpenedData=self.MainData
 
     def getData(self):
         #to stop playing the old music#
@@ -78,15 +80,20 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def UpdateMainData(self):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
 
+    def updateEqualizedData(self):
+        self.MainData=self.OpenedData
+        [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]=self.MainData
+
     def graphMainData(self):
         if self.FFTdata is not None:
             self.graph(self.FFTdata,self.freqs,Colors.white)
 
     def graph(self,data,freqs,color):
         if self.FFTdata is not None:
-            self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
-    
-    
+           #self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
+            self.widget.plotItem.plot(freqs,abs(data),pen =color)
+
+
     def generateSound(self):
         if self.FFTdata is not None:
             generatedAudio=np.real(fftpk.ifft(self.FFTdata))
@@ -176,8 +183,10 @@ class ApplicationWindow(UI.Ui_MainWindow):
 
     def ApplyEqualizer(self):
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
+        self.updateEqualizedData()
         self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
         self.UpdateMainData()
+        self.graphMainData()
         
         
 
