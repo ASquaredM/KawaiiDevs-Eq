@@ -16,7 +16,7 @@ class Ui_PopUpWindow(UI.Ui_MainWindow):
         self.LoadFiletoWidget1Button.clicked.connect(lambda : self.LoadFile(1))
         self.LoadFiletoWidget2Button.clicked.connect(lambda : self.LoadFile(2))
         self.ClearWidget1Button.clicked.connect(lambda :self.clearWidget(1))
-        self.ClearWidget1Button.clicked.connect(lambda :self.clearWidget(2))
+        self.ClearWidget2Button.clicked.connect(lambda :self.clearWidget(2))
         self.graphAll()
 
     def graphAll(self):
@@ -34,7 +34,7 @@ class Ui_PopUpWindow(UI.Ui_MainWindow):
     def LoadFile(self,indexOfWidget):
         data=getWavData()
         if data is not None:
-            self.Data[indexOfWidget]=data()
+            self.Data[indexOfWidget]=data
             self.Widgets[indexOfWidget].plotItem.clear()
             self.graph(self.Data[indexOfWidget],self.Widgets[indexOfWidget])
             self.Widgets[indexOfWidget].setHidden(False)
