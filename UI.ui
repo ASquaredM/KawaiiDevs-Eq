@@ -98,7 +98,7 @@
           <item>
            <widget class="QPushButton" name="CompareButton">
             <property name="text">
-             <string>Open The Comarer</string>
+             <string>Open The Comparer</string>
             </property>
            </widget>
           </item>
@@ -132,6 +132,13 @@
               <string>Hanning</string>
              </property>
             </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="ApplyEqualizerButton">
+            <property name="text">
+             <string>Apply Equalizer</string>
+            </property>
            </widget>
           </item>
          </layout>
