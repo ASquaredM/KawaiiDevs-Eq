@@ -110,7 +110,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 GenratedAudio=np.real(fftpk.ifft(self.FFTdata))
                 SavedData=GenratedAudio
                 name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.Path+".wav")[0]
-                print(name,self.SampleRate,SavedData)
+                #print(name,self.SampleRate,SavedData)
                 sio.wavfile.write(name, self.SampleRate, SavedData)
             if SaveMode[indexOfSaveModes]=="Save1":
                 self.SavedData1=self.MainData
@@ -184,7 +184,9 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def ApplyEqualizer(self):
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
         self.updateEqualizedData()
-        self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
+        #print(self.FFTdata)
+        #print(self.freqs)
+        self.FFTdata,self.freqs=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
         self.UpdateMainData()
         self.graphMainData()
         
