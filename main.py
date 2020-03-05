@@ -93,10 +93,18 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.SavedData1=None
         self.SavedData2=None
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
 =======
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+        self.OpenedData=None
+>>>>>>> ddde257... Fixing Equalizer Stability
+>>>>>>> a8ab156... Fixing Equalizer Stability
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -126,6 +134,10 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
             self.UpdateMainData()
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            self.OpenedData=self.MainData
+>>>>>>> ddde257... Fixing Equalizer Stability
 
 <<<<<<< HEAD
     def UpdateMainData(self):
@@ -173,15 +185,20 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> 71640f8... Update
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
+    def updateEqualizedData(self):
+        self.MainData=self.OpenedData
+        [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]=self.MainData
+
     def graphMainData(self):
         if self.FFTdata is not None:
             self.graph(self.FFTdata,self.freqs,Colors.white)
 
     def graph(self,data,freqs,color):
         if self.FFTdata is not None:
-            self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
-    
-    
+           #self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
+            self.widget.plotItem.plot(freqs,abs(data),pen =color)
+
+
     def generateSound(self):
         if self.FFTdata is not None:
             generatedAudio=np.real(fftpk.ifft(self.FFTdata))
@@ -331,8 +348,10 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
     def ApplyEqualizer(self):
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
+        self.updateEqualizedData()
         self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
         self.UpdateMainData()
+        self.graphMainData()
         
         
 <<<<<<< HEAD
