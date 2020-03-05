@@ -141,7 +141,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.Band9Slider,
             self.Band10Slider
         ]
-
+        self.WindowMode.setDisabled(True)
+        self.ApplyEqualizerButton.setDisabled(True)
         self.slidersEnable=False
         self.OnOff.setText("ON")
 
@@ -171,11 +172,15 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setEnabled(True)
                 self.slidersEnable=True
+                self.WindowMode.setEnabled(True)
+                self.ApplyEqualizerButton.setEnabled(True)
                 self.OnOff.setText("OFF")
             else:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setDisabled(True)
                     self.sliders[numberOfBand].setValue(50)
+                self.WindowMode.setDisabled(True)
+                self.ApplyEqualizerButton.setDisabled(True)
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
 
