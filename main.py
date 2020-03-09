@@ -1,7 +1,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 import UI
 import wave
 #import untitled
@@ -13,7 +17,11 @@ import sys
 from GetDataFromFile import getDataFromAFile
 =======
 from GetDataFromFile import getWavData
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 import scipy
 import scipy.io as sio
 import scipy.fftpack as fftpk
@@ -24,8 +32,16 @@ import Colors
 from PopUpWindowClass import BuildPopUpWindow
 =======
 from PopUpWindowClass import Ui_PopUpWindow
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
+from WinFns import WinFn
+>>>>>>> 33d840c... master
+=======
 from WinFns import WinFn
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 #import 
 
 #WinFn(Win_Fn,freq,Bands,Gains,data)
@@ -35,7 +51,11 @@ from WinFns import WinFn
 Gains = [0,0,0,0,0,0,0,0,0,0]
 =======
 Gains = np.ones(10)
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 #Freq. Spectrum Division (Setting Bands)
 Bands = np.array([[20,40],[40,80],[80,160]
@@ -72,7 +92,19 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
         self.SavedData1=None
         self.SavedData2=None
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+        self.OpenedData=None
+>>>>>>> ddde257... Fixing Equalizer Stability
+>>>>>>> a8ab156... Fixing Equalizer Stability
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -85,7 +117,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
         #self.CompareButton.clicked.connect(self.compareToAFile)
         #self.ClearComparedButton.clicked.connect(self.clearCompared)
 =======
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
         self.OnOff.clicked.connect(self.slidersChangeState)
 
     def OpenFile(self):
@@ -97,8 +133,22 @@ class ApplicationWindow(UI.Ui_MainWindow):
             print(self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path)
 =======
             self.UpdateMainData()
->>>>>>> 71640f8... Update
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            self.OpenedData=self.MainData
+>>>>>>> ddde257... Fixing Equalizer Stability
 
+<<<<<<< HEAD
+    def UpdateMainData(self):
+        self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+>>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+
+=======
+>>>>>>> 33d840c... master
     def getData(self):
         #to stop playing the old music#
         if self.FFTdata is not None:
@@ -123,10 +173,21 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
         #get the Data#
         return getWavData()
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+
+    def UpdateMainData(self):
+        self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
+=======
 
     def UpdateMainData(self):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+
+    def updateEqualizedData(self):
+        self.MainData=self.OpenedData
+        [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]=self.MainData
 
     def graphMainData(self):
         if self.FFTdata is not None:
@@ -134,9 +195,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
 
     def graph(self,data,freqs,color):
         if self.FFTdata is not None:
+            self.widget.plotItem.clear()
             self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
-    
-    
+            #self.widget.plotItem.plot(freqs,abs(data),pen =color)
+
+
     def generateSound(self):
         if self.FFTdata is not None:
             generatedAudio=np.real(fftpk.ifft(self.FFTdata))
@@ -153,7 +216,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 GenratedAudio=np.real(fftpk.ifft(self.FFTdata))
                 SavedData=GenratedAudio
                 name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.Path+".wav")[0]
-                print(name,self.SampleRate,SavedData)
+                #print(name,self.SampleRate,SavedData)
                 sio.wavfile.write(name, self.SampleRate, SavedData)
             if SaveMode[indexOfSaveModes]=="Save1":
                 self.SavedData1=self.MainData
@@ -184,7 +247,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.mainWindow=QtWidgets.QMainWindow()
             self.PopUp = Ui_PopUpWindow(self.mainWindow,self.MainData,self.SavedData1,self.SavedData2)
             self.mainWindow.show()
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 
 
@@ -202,7 +269,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.Band9Slider,
             self.Band10Slider
         ]
-
+        self.WindowMode.setDisabled(True)
+        self.ApplyEqualizerButton.setDisabled(True)
         self.slidersEnable=False
         self.OnOff.setText("ON")
 
@@ -218,10 +286,15 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.sliders[9].valueChanged.connect(lambda :self.edittingSliderValue(9))
 
 <<<<<<< HEAD
+        self.ApplyEqualizerButton.clicked.connect(self.ApplyEqualizer)
+
+=======
+<<<<<<< HEAD
 =======
         self.ApplyEqualizerButton.clicked.connect(self.ApplyEqualizer)
 
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
         
         for numberOfBand in range(0,10):
             self.sliders[numberOfBand].setRange(0,100)
@@ -235,21 +308,46 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setEnabled(True)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
                 windowMode=Win_Fn[self.WindowMode.currentIndex()]
                 print(windowMode)
+<<<<<<< HEAD
                 self.WindowMode.setDisabled(True)
 =======
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+=======
+>>>>>>> 33d840c... master
+=======
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
                 self.slidersEnable=True
+                self.WindowMode.setEnabled(True)
+                self.ApplyEqualizerButton.setEnabled(True)
                 self.OnOff.setText("OFF")
             else:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setDisabled(True)
                     self.sliders[numberOfBand].setValue(50)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
                 self.WindowMode.setEnabled(True)
 =======
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+                self.WindowMode.setDisabled(True)
+                self.ApplyEqualizerButton.setDisabled(True)
+>>>>>>> 4b290cf... push
+>>>>>>> 139670e... push
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
 
@@ -258,13 +356,23 @@ class ApplicationWindow(UI.Ui_MainWindow):
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
     def ApplyEqualizer(self):
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
-        self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
+        self.updateEqualizedData()
+        #print(self.FFTdata)
+        #print(self.freqs)
+        self.FFTdata,self.freqs=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
         self.UpdateMainData()
+        self.graphMainData()
         
         
+<<<<<<< HEAD
+=======
 >>>>>>> 71640f8... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
         
 def main():
@@ -395,5 +503,10 @@ if __name__ == "__main__":
 =======
 >>>>>>> bc6ab04fc484c6229c2a55bbcecb90bfb2b0e707
 =======
+<<<<<<< HEAD
+>>>>>>> ef09d7a... PopUp Functions
+>>>>>>> b8a63c7... PopUp Functions
+=======
 >>>>>>> 71640f8... Update
 >>>>>>> e17ad2f... Update
+>>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6

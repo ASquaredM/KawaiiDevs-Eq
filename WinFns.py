@@ -11,13 +11,31 @@ Win_Fn = np.array(['Rectangular','Hamming','Hanning'])
 """
 
 def WinFn(Win_Fn,freq,Bands,Gains,data):
+    print(freq)
+    print(data)
+    lendata=len(data)
+    positiveData=data[:lendata//2]
+    halfOfRange=freq[:lendata//2]
     if Win_Fn == 'Rectangular':
-        Win_data=Rec_Fn(data,freq,Bands,Gains)
+        Win_data=Rec_Fn(positiveData,halfOfRange,Bands,Gains)
     elif Win_Fn == 'Hamming':
-        Win_data=Ham_Fn(data,freq,Bands,Gains)
+        Win_data=Ham_Fn(positiveData,halfOfRange,Bands,Gains)
     elif Win_Fn == 'Hanning':
-        Win_data=Han_Fn(data,freq,Bands,Gains)
-    return Win_data
+        Win_data=Han_Fn(positiveData,halfOfRange,Bands,Gains)
+    print(Win_data)
+    positiveGainedData=np.array(Win_data,dtype=complex)#[len(Win_data)]
+    print(positiveData)
+    zeros=np.zeros(lendata//2,dtype=complex) 
+    print(zeros) 
+    #positiveData2 = [zeros,positiveData]  
+    positiveDataFinal=np.concatenate([positiveGainedData,zeros])
+    FlippedDate=np.flip(positiveGainedData)
+    negativeDataFinal=np.concatenate([zeros,FlippedDate])
+    Win_data=positiveDataFinal+negativeDataFinal
+    print(len(Win_data))
+    print(len(freq))
+    freq = np.array( freq [0:len(freq)-1])
+    return [Win_data,freq]
 
 def Rec_Fn(data,freq,Bands,Gains):
     len_freq = len(freq)
