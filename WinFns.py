@@ -71,8 +71,12 @@ def Rec_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
     Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
+<<<<<<< HEAD
     while itr_outer < 9:
 <<<<<<< HEAD
+=======
+    while itr_outer < 10:
+>>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
         high = indxh(Bands[itr_outer][1],stp)
         BW = high - low
@@ -104,9 +108,13 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
     Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
+<<<<<<< HEAD
     out_data = np.zeros(0,dtype=complex)
     while itr_outer < 9:
 <<<<<<< HEAD
+=======
+    while itr_outer < 10:
+>>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
         high = indxh(Bands[itr_outer][1],stp)
         Hamm_Arr_Size = 2 * (high - low)
@@ -149,8 +157,12 @@ def Han_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
     Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
+<<<<<<< HEAD
     while itr_outer < 9:
 <<<<<<< HEAD
+=======
+    while itr_outer < 10:
+>>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
         high = indxh(Bands[itr_outer][1],stp)
         Hann_Arr_Size = 2 * (high - low)
