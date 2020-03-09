@@ -52,6 +52,10 @@ def WinFn(Win_Fn,freq,Bands,Gains,data):
 def indxl(low,stp):
     indx = int(low//stp)
     return indx
+<<<<<<< HEAD
+=======
+
+>>>>>>> d9a0b44... Minor Edit
 def indxh(high,stp):
     indx = int(high//stp)
     return indx
