@@ -1,4 +1,14 @@
 import numpy as np
+"""
+freq = np.arange(20,5000)
+Gains = [1,1,0,1,0,1,0,0,0,0]
+Bands = np.array([[20,40],[40,80],[80,160]
+                    ,[160,300],[300,600],[600,1200]
+                    ,[1200,2400],[2400,5000],[5000,10000]
+                    ,[10000,20000]])
+data = np.arange(20,5000)
+Win_Fn = np.array(['Rectangular','Hamming','Hanning'])
+"""
 
 def WinFn(Win_Fn,freq,Bands,Gains,data):
     stp = freq[3] - freq[2]
@@ -17,15 +27,16 @@ def WinFn(Win_Fn,freq,Bands,Gains,data):
     FlippedDate=np.flip(positiveGainedData)
     negativeDataFinal=np.concatenate([zeros,FlippedDate])
     Win_data=positiveDataFinal+negativeDataFinal
+
     return Win_data
 
 def indxl(low,stp):
     indx = int(low//stp)
     return indx
-def indxh(high,stp):
+
+  def indxh(high,stp):
     indx = int(high//stp)
     return indx
-
 
 def Rec_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
@@ -51,6 +62,7 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
     Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
+    out_data = np.zeros(0,dtype=complex)
     while itr_outer < 9:
         low = indxl(Bands[itr_outer][0],stp)
         high = indxh(Bands[itr_outer][1],stp)
