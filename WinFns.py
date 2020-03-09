@@ -49,16 +49,28 @@ def WinFn(Win_Fn,freq,Bands,Gains,data):
 <<<<<<< HEAD
     return Win_data
 
-def indxl(low,stp):
+def indxl(low,stp,len_freq):
     indx = int(low//stp)
+<<<<<<< HEAD
     return indx
 <<<<<<< HEAD
 =======
 
 >>>>>>> d9a0b44... Minor Edit
 def indxh(high,stp):
+=======
+    if indx < len_freq:
+        return indx
+    if indx > len_freq:
+        return len_freq
+
+def indxh(high,stp,len_freq):
+>>>>>>> 97feae1... Window Function Fix Fix
     indx = int(high//stp)
-    return indx
+    if indx < len_freq:
+        return indx
+    if indx > len_freq:
+        return len_freq
 
 =======
     print(len(Win_data))
@@ -76,16 +88,26 @@ def Rec_Fn(data,freq,Bands,Gains,stp):
 <<<<<<< HEAD
 =======
     while itr_outer < 10:
+<<<<<<< HEAD
 >>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
         high = indxh(Bands[itr_outer][1],stp)
+=======
+        low = indxl(Bands[itr_outer][0],stp,len_freq)
+        high = indxh(Bands[itr_outer][1],stp,len_freq)
+>>>>>>> 97feae1... Window Function Fix Fix
         BW = high - low
         Shaper_Arr_Size = len_freq - high
+        print('low =' , low)
+        print('high =' , high)
+        print('BW =' , BW)
+        print('Sha =' , Shaper_Arr_Size)
         if Shaper_Arr_Size > 0 :
             Shaper_Arr = np.zeros((Shaper_Arr_Size),dtype=complex)
             Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex),Shaper_Arr),axis=0)
         else:
             BW = len_freq - low
+            print('BW =' , BW)
             Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex)),axis=0)
         Win_data += (Win_Fn_Arr*data*Gains[itr_outer])
 =======
@@ -114,9 +136,14 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
 <<<<<<< HEAD
 =======
     while itr_outer < 10:
+<<<<<<< HEAD
 >>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
         high = indxh(Bands[itr_outer][1],stp)
+=======
+        low = indxl(Bands[itr_outer][0],stp,len_freq)
+        high = indxh(Bands[itr_outer][1],stp,len_freq)
+>>>>>>> 97feae1... Window Function Fix Fix
         Hamm_Arr_Size = 2 * (high - low)
         Offset = abs(int((low - ((0.25) * Hamm_Arr_Size))))
         Shaper_Arr = np.zeros(0,dtype=complex)
@@ -162,9 +189,14 @@ def Han_Fn(data,freq,Bands,Gains,stp):
 <<<<<<< HEAD
 =======
     while itr_outer < 10:
+<<<<<<< HEAD
 >>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
         high = indxh(Bands[itr_outer][1],stp)
+=======
+        low = indxl(Bands[itr_outer][0],stp,len_freq)
+        high = indxh(Bands[itr_outer][1],stp,len_freq)
+>>>>>>> 97feae1... Window Function Fix Fix
         Hann_Arr_Size = 2 * (high - low)
         Offset = abs(int((low - ((0.25) * Hann_Arr_Size))))
         Shaper_Arr = np.zeros(0,dtype=complex)
