@@ -1,77 +1,92 @@
 import numpy as np
 
 def WinFn(Win_Fn,freq,Bands,Gains,data):
-    Win_data = np.zeros(len(freq))
+    stp = freq[3] - freq[2]
+    lendata=len(data)
+    positiveData=data[:lendata//2]
+    halfOfRange=freq[:lendata//2]
     if Win_Fn == 'Rectangular':
-        Win_data=Rec_Fn(data,freq,Bands,Gains)
+        Win_data=Rec_Fn(positiveData,halfOfRange,Bands,Gains,stp)
     elif Win_Fn == 'Hamming':
-        Win_data=Ham_Fn(data,freq,Bands,Gains)
+        Win_data=Ham_Fn(positiveData,halfOfRange,Bands,Gains,stp)
     elif Win_Fn == 'Hanning':
-        Win_data=Han_Fn(data,freq,Bands,Gains)
+        Win_data=Han_Fn(positiveData,halfOfRange,Bands,Gains,stp)
+    positiveGainedData= Win_data
+    zeros=np.zeros(lendata//2,dtype=complex)
+    positiveDataFinal=np.concatenate([positiveGainedData,zeros])
+    FlippedDate=np.flip(positiveGainedData)
+    negativeDataFinal=np.concatenate([zeros,FlippedDate])
+    Win_data=positiveDataFinal+negativeDataFinal
+    return Win_data
 
-def Rec_Fn(data,freq,Bands,Gains):
+def indxl(low,stp):
+    indx = int(low//stp)
+    return indx
+def indxh(high,stp):
+    indx = int(high//stp)
+    return indx
+
+
+def Rec_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
-    Win_data = np.zeros(0)
+    Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
     while itr_outer < 9:
-        itr_inner = 0
-        Win_Fn_Arr = np.zeros(len_freq)
-        while itr_inner < len_freq:
-            if (freq[itr_inner] >= Bands[itr_outer][0] and freq[itr_inner] <= Bands[itr_outer][0] ):
-                Win_Fn_Arr[itr_inner] = 1
-            else:
-                Win_Fn_Arr[itr_inner] = 0
-            itr_inner+=1
-            
-        Win_data += Win_Fn_Arr*data*Gains[itr_outer]
+        low = indxl(Bands[itr_outer][0],stp)
+        high = indxh(Bands[itr_outer][1],stp)
+        BW = high - low
+        Shaper_Arr_Size = len_freq - high
+        if Shaper_Arr_Size > 0 :
+            Shaper_Arr = np.zeros((Shaper_Arr_Size),dtype=complex)
+            Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex),Shaper_Arr),axis=0)
+        else:
+            BW = len_freq - low
+            Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex)),axis=0)
+        Win_data += (Win_Fn_Arr*data*Gains[itr_outer])
         itr_outer += 1
     return Win_data
 
 
-def Ham_Fn(data,freq,Bands,Gains):
+def Ham_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
-    Win_data = np.zeros(0)
+    Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
     while itr_outer < 9:
-        itr_inner = 0
-        if (Bands[itr_outer][0] or Bands[itr_outer][1]) in freq:
-            #convert array to list for easy access to location of wanted element
-            freq_list = list(freq)
-            #get location of wanted element
-            lowcut = freq_list.index(Bands[itr_outer][0])
-            highcut = freq_list.index(Bands[itr_outer][1])
-            Hamm_Arr_Size = 2 * (highcut - lowcut)
-            Offset = abs(int(lowcut - ((0.25) * Hamm_Arr_Size)))
-            Hamm_Fn_Arr = np.concatenate((np.zeros(Offset),np.hamming(Hamm_Arr_Size)
-                            ,np.zeros(len_freq - Hamm_Arr_Size - Offset)),axis=0,out=None)
-            #multiple the data from beginning "or lowcut" to our highcut in humming func and gain then connect the rest of data to have original array but modified in one band and 0 in other bands
-            out_data = data*Hamm_Fn_Arr*Gains[itr_inner]
-        Win_data += out_data
-        itr_outer += 1
-        
+        low = indxl(Bands[itr_outer][0],stp)
+        high = indxh(Bands[itr_outer][1],stp)
+        Hamm_Arr_Size = 2 * (high - low)
+        Offset = abs(int((low - ((0.25) * Hamm_Arr_Size))))
+        Shaper_Arr = np.zeros(0,dtype=complex)
+        Shaper_Arr_Size = len_freq - Hamm_Arr_Size - Offset
+        if Shaper_Arr_Size > 0 :
+            Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
+            Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),np.hamming(Hamm_Arr_Size),Shaper_Arr),axis=0),dtype=complex)
+        else :
+            Hamm_Arr_Size = len_freq - Offset
+            Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hamming(Hamm_Arr_Size)),axis=0),dtype=complex)
+        Win_data += data*Hamm_Fn_Arr[0:(len_freq)]*Gains[itr_outer]
+        itr_outer += 1   
     return Win_data
 
-def Han_Fn(data,freq,Bands,Gains):
+def Han_Fn(data,freq,Bands,Gains,stp):
     len_freq = len(freq)
-    Win_data = np.zeros(0)
+    Win_data = np.zeros(len_freq,dtype=complex)
     itr_outer = 0
     while itr_outer < 9:
-        itr_inner = 0
-        if (Bands[itr_outer][0] or Bands[itr_outer][1]) in freq:
-            #convert array to list for easy access to location of wanted element
-            freq_list = list(freq)
-            #get location of wanted element
-            lowcut = freq_list.index(Bands[itr_outer][0])
-            highcut = freq_list.index(Bands[itr_outer][1])
-            Hunn_Arr_Size = 2 * (highcut - lowcut)
-            Offset = abs(int(lowcut - ((0.25) * Hunn_Arr_Size)))
-            Hunn_Fn_Arr = np.concatenate((np.zeros(Offset),np.hanning(Hunn_Arr_Size)
-                            ,np.zeros(len_freq - Hunn_Arr_Size - Offset)),axis=0,out=None)
-            #multiple the data from beginning "or lowcut" to our highcut in humming func and gain then connect the rest of data to have original array but modified in one band and 0 in other bands
-            out_data = data*Hunn_Fn_Arr*Gains[itr_inner]
-        Win_data += out_data
-        itr_outer += 1
-        
+        low = indxl(Bands[itr_outer][0],stp)
+        high = indxh(Bands[itr_outer][1],stp)
+        Hann_Arr_Size = 2 * (high - low)
+        Offset = abs(int((low - ((0.25) * Hann_Arr_Size))))
+        Shaper_Arr = np.zeros(0,dtype=complex)
+        Shaper_Arr_Size = len_freq - Hann_Arr_Size - Offset
+        if Shaper_Arr_Size > 0 :
+            Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
+            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),np.hanning(Hann_Arr_Size),Shaper_Arr),axis=0),dtype=complex)
+        else :
+            Hann_Arr_Size = len_freq - Offset
+            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hanning(Hann_Arr_Size)),axis=0),dtype=complex)
+        Win_data += data*Hann_Fn_Arr[0:(len_freq)]*Gains[itr_outer]
+        itr_outer += 1   
     return Win_data
 
 
