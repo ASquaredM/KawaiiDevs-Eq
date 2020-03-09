@@ -1,18 +1,22 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import PopUpWindow as UI
 import sys
-from GetDataFromFile import getWavData
-
+from GetDataFromFile import getDataFromAFile, wavData
+from WidgetClass import PlotWidget
 class Ui_PopUpWindow(UI.Ui_MainWindow):
     def __init__(self,mainWindow, MainData,SavedData1,SavedData2):
         super(Ui_PopUpWindow,self).setupUi(mainWindow)
+        
         self.Data=[MainData,SavedData1,SavedData2]
-        self.Widgets=[self.MainDataWidget,self.SavedData1Widget,self.SavedData2Widget]
-        self.MainData=MainData
-        self.SavedData1=SavedData1
-        self.SavedData2=SavedData2
-        self.SavedData1Widget.setHidden(True)
-        self.SavedData2Widget.setHidden(True)
+        
+        self.Widgets=[
+            PlotWidget(self.MainDataTimeWidget,self.MainDataFFTWidget),
+            PlotWidget(self.SavedData1TimeWidget,self.SavedData1FFTWidget),
+            PlotWidget(self.SavedData2TimeWidget,self.SavedData2FFTWidget)]
+        
+        for i in range(0,3):
+            self.Widgets[i].setHidden(True)
+        
         self.LoadFiletoWidget1Button.clicked.connect(lambda : self.LoadFile(1))
         self.LoadFiletoWidget2Button.clicked.connect(lambda : self.LoadFile(2))
         self.ClearWidget1Button.clicked.connect(lambda :self.clearWidget(1))
@@ -20,30 +24,20 @@ class Ui_PopUpWindow(UI.Ui_MainWindow):
         self.graphAll()
 
     def graphAll(self):
-        if self.MainData is not None:
-            self.graph(self.MainData,self.MainDataWidget)
-            if self.SavedData1 is not None:
-                self.LoadFiletoWidget1Button.setHidden(False)
-                self.SavedData1Widget.setHidden(False)
-                self.graph(self.SavedData1,self.SavedData1Widget)
-            if self.SavedData2 is not None:
-                self.LoadFiletoWidget2Button.setHidden(False)
-                self.SavedData2Widget.setHidden(False)
-                self.graph(self.SavedData2,self.SavedData2Widget)
-
+        for indexOfWidget in range(0,3):
+            if self.Data[indexOfWidget] is not None:
+                self.Widgets[indexOfWidget].setHidden(False)
+                self.Widgets[indexOfWidget].Graph(self.Data[indexOfWidget])
+        
     def LoadFile(self,indexOfWidget):
-        data=getWavData()
+        filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;")
+        data=getDataFromAFile(filePath)
         if data is not None:
             self.Data[indexOfWidget]=data
-            self.Widgets[indexOfWidget].plotItem.clear()
-            self.graph(self.Data[indexOfWidget],self.Widgets[indexOfWidget])
+            self.Widgets[indexOfWidget].Graph(data)
             self.Widgets[indexOfWidget].setHidden(False)
 
     def clearWidget(self,indexOfWidget):
         self.Widgets[indexOfWidget].setHidden(True)
 
-    def graph(self,data,Widget):
-        FFTdata=data[0]
-        freqs=data[1]
-        Widget.plotItem.plot(freqs[range(len(FFTdata)//2)],abs(FFTdata[range(len(FFTdata)//2)]))
 

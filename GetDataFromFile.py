@@ -5,6 +5,25 @@ import soundfile as sf
 import scipy.fftpack as fftpk
 from PyQt5 import QtWidgets, QtCore
 
+
+class wavData:
+    def __init__(self,TimeData,FFTData,freqs,SampleRate,FileName,FilePath):
+        self.assignAll(TimeData,FFTData,freqs,SampleRate,FileName,FilePath)
+
+    def assignAll(self=None,TimeData=None,FFTData=None,freqs=None,SampleRate=None,FileName=None,FilePath=None):
+        if TimeData is not None:
+            self.TimeData= TimeData
+        if FFTData is not None:
+            self.FFTData= FFTData
+        if freqs is not None:
+            self.freqs= freqs
+        if SampleRate is not None:
+            self.SampleRate= SampleRate
+        if FileName is not None:
+            self.FileName= FileName
+        if FilePath is not None:
+            self.FilePath= FilePath
+
 def getDataFromAFile(filePath):
     filePath=filePath[0]
     data= None
@@ -20,15 +39,10 @@ def getDataFromAFile(filePath):
     elif(datatype=="mat"):
         data=mat(filePath)  
     elif(datatype=="wav"):
-        data=wav(filePath)  
+        data=wav(filePath,filename)  
     else:
         return None
-    """elif(datatype=="mp3"):
-        data=mp3(filePath)  
-    elif(datatype=="snd"):
-        data=mp3(filePath)  """
-    #print(data[1])
-    return [data,filename,Path]
+    return data
 
 def mat(filename):
     data=sio.loadmat(filename)
@@ -42,31 +56,19 @@ def txt(filename):
     data = np.loadtxt(filename, delimiter=',')
     return data
 
-def wav(filename):
-    #data= siowav.read(filename)
-    data=sf.read(filename, dtype='float32')
-    return data
 
-def mp3(filename):
-    pass
-def snd(filename):
-    pass
-
-
-def getWavData():
-    #get the file and read it#
-    filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;" " *.mp3;;" "*.snd")
-    dataFromTheFile=getDataFromAFile(filePath)
+def wav(filePath,FileName):
+    dataFromTheFile=sf.read(filePath, dtype='float32')
     if dataFromTheFile is not None:
-        Output,FileName,Path = dataFromTheFile
-        nChannelData,SampleRate=Output
+        nChannelData,SampleRate=dataFromTheFile
         if  isinstance(nChannelData[0] ,np.ndarray):
             oneChannelData=nChannelData[:,0]
         else:
             oneChannelData=nChannelData
         FFTData=fftpk.fft(oneChannelData)
         freqs =fftpk.fftfreq(len(FFTData),(1.0/SampleRate))
-        print(FFTData,freqs,SampleRate,FileName,Path)
-        return FFTData,freqs,SampleRate,FileName,Path
+        Data=wavData(oneChannelData,FFTData,freqs,SampleRate,FileName,filePath)
+        print(Data)
+        return Data
     else:
         return None

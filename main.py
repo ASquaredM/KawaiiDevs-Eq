@@ -14,6 +14,7 @@ from pyqtgraph.Qt import QtGui, QtCore
 import numpy as np
 import sys
 <<<<<<< HEAD
+<<<<<<< HEAD
 from GetDataFromFile import getDataFromAFile
 =======
 from GetDataFromFile import getWavData
@@ -21,7 +22,13 @@ from GetDataFromFile import getWavData
 >>>>>>> ef09d7a... PopUp Functions
 =======
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+>>>>>>> c5635df... improving modularity adding new bugs to fux later
+>>>>>>> beccabf... improving modularity adding new bugs to fux later
 import scipy
 import scipy.io as sio
 import scipy.fftpack as fftpk
@@ -32,6 +39,7 @@ import Colors
 from PopUpWindowClass import BuildPopUpWindow
 =======
 from PopUpWindowClass import Ui_PopUpWindow
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> ef09d7a... PopUp Functions
@@ -45,6 +53,11 @@ from WinFns import WinFn
 #import 
 
 #WinFn(Win_Fn,freq,Bands,Gains,data)
+=======
+from WinFns import WinFn as WF
+from GetDataFromFile import getDataFromAFile , wavData
+from WidgetClass import PlotWidget
+>>>>>>> c5635df... improving modularity adding new bugs to fux later
 
 #Init a gain for each band
 <<<<<<< HEAD
@@ -73,13 +86,16 @@ SaveMode=np.array(["To A File","Save1","Save2"])
 class ApplicationWindow(UI.Ui_MainWindow):
     def __init__(self,mainWindow):
         super(ApplicationWindow,self).setupUi(mainWindow)
+        self.Widget=PlotWidget(self.MainDataTimeWidget,self.MainDataFFTWidget)
         self.VariableInitialization()
         self.ButtonInitialization()
         self.sliderInitialization()
+        self.MainDataTimeWidget
 
     def VariableInitialization(self):
         self.slidersEnable=False
         self.PopUpMenuIsON=False
+<<<<<<< HEAD
         self.FileName=None
         self.Path=None
         self.freqs=None 
@@ -90,6 +106,10 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.SavedData1=[]
         self.SavedData2=[]
 =======
+=======
+        self.OpenedAFileEnable=False
+        self.MainData=None
+>>>>>>> c5635df... improving modularity adding new bugs to fux later
         self.SavedData1=None
         self.SavedData2=None
 <<<<<<< HEAD
@@ -103,8 +123,15 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
 =======
         self.OpenedData=None
+<<<<<<< HEAD
 >>>>>>> ddde257... Fixing Equalizer Stability
+<<<<<<< HEAD
 >>>>>>> a8ab156... Fixing Equalizer Stability
+=======
+=======
+        
+>>>>>>> c5635df... improving modularity adding new bugs to fux later
+>>>>>>> beccabf... improving modularity adding new bugs to fux later
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -124,6 +151,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
         self.OnOff.clicked.connect(self.slidersChangeState)
 
+<<<<<<< HEAD
     def OpenFile(self):
         Output = self.getData()
         if Output is not None:
@@ -183,47 +211,65 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def UpdateMainData(self):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+        self.PlayButton.setDisabled(True)
+        self.PauseButton.setDisabled(True)
+        self.SaveButton.setDisabled(True)
+        self.CompareButton.setDisabled(True)
+        self.OnOff.setDisabled(True)
 
-    def updateEqualizedData(self):
+    def EnableButtons(self):
+        self.OpenedAFileEnable=True
+        self.PlayButton.setEnabled(True)
+        self.PauseButton.setEnabled(True)
+        self.SaveButton.setEnabled(True)
+        self.CompareButton.setEnabled(True)
+        self.OnOff.setEnabled(True)
+>>>>>>> c5635df... improving modularity adding new bugs to fux later
+>>>>>>> beccabf... improving modularity adding new bugs to fux later
+
+    def OpenFile(self):
+        #to stop playing the old music#
+        sd.stop()
+        #Get the Data from the File#
+        filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;")
+        self.MainData= getDataFromAFile(filePath) if getDataFromAFile(filePath) is not None else self.MainData
+        print(self.MainData )
+        self.OpenedData= self.MainData
+        if self.OpenedAFileEnable is  False:
+            self.EnableButtons()
+
+    def updatePreEqualizerData(self):
         self.MainData=self.OpenedData
-        [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]=self.MainData
 
     def graphMainData(self):
-        if self.FFTdata is not None:
-            self.graph(self.FFTdata,self.freqs,Colors.white)
-
-    def graph(self,data,freqs,color):
-        if self.FFTdata is not None:
-            self.widget.plotItem.clear()
-            self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
-            #self.widget.plotItem.plot(freqs,abs(data),pen =color)
-
+        self.Widget.Graph(self.MainData)
 
     def generateSound(self):
-        if self.FFTdata is not None:
-            generatedAudio=np.real(fftpk.ifft(self.FFTdata))
-            sd.play(generatedAudio,self.SampleRate)
+        if self.MainData is not None:
+            sd.play(self.MainData.TimeData,self.MainData.SampleRate)
             
     def pauseSound(self):
-        if (self.FFTdata is not None):
+        if self.MainData is not None:
             sd.stop()
     
     def saveSoundFile(self):
-        if self.FFTdata is not None:
+        if self.MainData is not None:
             indexOfSaveModes=self.SaveMode.currentIndex()
             if SaveMode[indexOfSaveModes]=="To A File":
-                GenratedAudio=np.real(fftpk.ifft(self.FFTdata))
-                SavedData=GenratedAudio
-                name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.Path+".wav")[0]
-                #print(name,self.SampleRate,SavedData)
-                sio.wavfile.write(name, self.SampleRate, SavedData)
+                name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.MainData.FilePath+".wav")[0]
+                sio.wavfile.write(name, self.MainData.SampleRate, self.MainData.TimeData)
             if SaveMode[indexOfSaveModes]=="Save1":
                 self.SavedData1=self.MainData
             if SaveMode[indexOfSaveModes]=="Save2":
                 self.SavedData2=self.MainData
 
     def OpenPopUpWindow(self):
+<<<<<<< HEAD
 <<<<<<< HEAD
         BuildPopUpWindow(self.MainData,self.SavedData1,self.SavedData2)
         
@@ -243,6 +289,9 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.graphMainData()
 =======
         if self.FFTdata is not None:
+=======
+        if self.MainData is not None:
+>>>>>>> c5635df... improving modularity adding new bugs to fux later
             print("Opening a new popup window...")
             self.mainWindow=QtWidgets.QMainWindow()
             self.PopUp = Ui_PopUpWindow(self.mainWindow,self.MainData,self.SavedData1,self.SavedData2)
@@ -252,8 +301,6 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
 >>>>>>> 71640f8... Update
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
-
-
 
     def sliderInitialization(self):
 
@@ -303,7 +350,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
             #self.sliders[numberOfBand].valueChanged.connect(lambda :self.edittingSliderValue(numberOfBand))
 
     def slidersChangeState(self):
-        if self.FFTdata is not None:
+        if self.MainData is not None:
             if self.slidersEnable==False:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setEnabled(True)
@@ -361,11 +408,18 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
     def ApplyEqualizer(self):
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
+<<<<<<< HEAD
         self.updateEqualizedData()
         #print(self.FFTdata)
         #print(self.freqs)
         self.FFTdata,self.freqs=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
         self.UpdateMainData()
+=======
+        self.updatePreEqualizerData()
+        newFFTdata=WF(windowMode,self.MainData.freqs,Bands,Gains,self.MainData.FFTData)
+        newTimeData=np.real(fftpk.ifft(newFFTdata))
+        self.MainData.assignAll(FFTData=newFFTdata)
+>>>>>>> c5635df... improving modularity adding new bugs to fux later
         self.graphMainData()
         
         
