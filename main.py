@@ -52,6 +52,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
         self.SavedData1=None
         self.SavedData2=None
+        self.OpenedData=None
             
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
@@ -67,6 +68,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         if Output is not None:
             [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]= Output
             self.UpdateMainData()
+            self.OpenedData=self.MainData
 
     def getData(self):
         #to stop playing the old music#
@@ -78,15 +80,21 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def UpdateMainData(self):
         self.MainData=[self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]
 
+    def updateEqualizedData(self):
+        self.MainData=self.OpenedData
+        [self.FFTdata,self.freqs,self.SampleRate,self.FileName,self.Path]=self.MainData
+
     def graphMainData(self):
         if self.FFTdata is not None:
             self.graph(self.FFTdata,self.freqs,Colors.white)
 
     def graph(self,data,freqs,color):
         if self.FFTdata is not None:
+            self.widget.plotItem.clear()
             self.widget.plotItem.plot(freqs[range(len(data)//2)],abs(data[range(len(data)//2)]),pen =color )
-    
-    
+            #self.widget.plotItem.plot(freqs,abs(data),pen =color)
+
+
     def generateSound(self):
         if self.FFTdata is not None:
             generatedAudio=np.real(fftpk.ifft(self.FFTdata))
@@ -103,7 +111,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 GenratedAudio=np.real(fftpk.ifft(self.FFTdata))
                 SavedData=GenratedAudio
                 name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.Path+".wav")[0]
-                print(name,self.SampleRate,SavedData)
+                #print(name,self.SampleRate,SavedData)
                 sio.wavfile.write(name, self.SampleRate, SavedData)
             if SaveMode[indexOfSaveModes]=="Save1":
                 self.SavedData1=self.MainData
@@ -133,7 +141,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.Band9Slider,
             self.Band10Slider
         ]
-
+        self.WindowMode.setDisabled(True)
+        self.ApplyEqualizerButton.setDisabled(True)
         self.slidersEnable=False
         self.OnOff.setText("ON")
 
@@ -163,11 +172,15 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setEnabled(True)
                 self.slidersEnable=True
+                self.WindowMode.setEnabled(True)
+                self.ApplyEqualizerButton.setEnabled(True)
                 self.OnOff.setText("OFF")
             else:
                 for numberOfBand in range(0,10):
                     self.sliders[numberOfBand].setDisabled(True)
                     self.sliders[numberOfBand].setValue(50)
+                self.WindowMode.setDisabled(True)
+                self.ApplyEqualizerButton.setDisabled(True)
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
 
@@ -176,8 +189,12 @@ class ApplicationWindow(UI.Ui_MainWindow):
 
     def ApplyEqualizer(self):
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
-        self.FFTdata=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
+        self.updateEqualizedData()
+        #print(self.FFTdata)
+        #print(self.freqs)
+        self.FFTdata,self.freqs=WinFn(windowMode,self.freqs,Bands,Gains,self.FFTdata)
         self.UpdateMainData()
+        self.graphMainData()
         
         
 
