@@ -108,7 +108,6 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.SavedData2=wavData()
 
         self.Data=[self.OpenedData,self.MainData,self.SavedData1,self.SavedData2]
-        
 
         self.VariableInitialization()
         self.ButtonInitialization()
@@ -130,6 +129,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
 =======
         self.OpenedAFileEnable=False
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         self.MainData=None
@@ -165,6 +165,9 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
 >>>>>>> beccabf... improving modularity adding new bugs to fux later
             
+=======
+
+>>>>>>> f33cac6... UX update
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
         self.OpenFileButton.clicked.connect(self.graphMainData)
@@ -262,6 +265,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.ResetButton.clicked.connect(self.ResetMainData)
         self.CompareToButton.clicked.connect(self.OpenPopUpWindow)
 
+<<<<<<< HEAD
 >>>>>>> 7bff587... Adding Better UX
 
 <<<<<<< HEAD
@@ -281,6 +285,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> 3e867be... fixing
 >>>>>>> 018b4a2... fixing
 
+=======
+>>>>>>> f33cac6... UX update
     def OpenFile(self):
         #to stop playing the old music#
         sd.stop()
@@ -289,10 +295,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.MainData= getDataFromAFile(filePath) if getDataFromAFile(filePath) is not None else self.MainData
         self.MainData.print()
         self.OpenedData.CopyFrom(self.MainData)
+        self.Widgets[0].Graph(self.OpenedData)
         self.updateData()
 
     def updatePreEqualizerData(self):
         self.MainData.CopyFrom(self.OpenedData)
+        self.updateData()
+
 
     def graphMainData(self):
         self.Widgets[1].Graph(self.MainData)
@@ -301,9 +310,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def updateData(self):
         self.Data=[self.OpenedData,self.MainData,self.SavedData1,self.SavedData2]
 
-
     def ResetMainData(self):
+        for numberOfBand in range(0,10):
+            self.sliders[numberOfBand].setRange(0,100)
+            self.sliders[numberOfBand].setValue(50)
         self.MainData.CopyFrom(self.OpenedData)
+        self.updateData()
+
 
     def saveSoundFile(self):
         indexOfSaveModes=self.SaveMode.currentIndex()
@@ -312,8 +325,14 @@ class ApplicationWindow(UI.Ui_MainWindow):
             sio.wavfile.write(name, self.MainData.SampleRate, self.MainData.TimeData)
         if SaveMode[indexOfSaveModes]=="Save1":
             self.SavedData1.CopyFrom(self.MainData)
+            self.Widgets[2].Graph(self.SavedData1)
+            self.updateData()
         if SaveMode[indexOfSaveModes]=="Save2":
             self.SavedData2.CopyFrom(self.MainData)
+            self.Widgets[2].Graph(self.SavedData1)
+            self.updateData()
+
+
 
     def OpenPopUpWindow(self):
 <<<<<<< HEAD
@@ -525,6 +544,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.MainData.assignAll(FFTData=newFFTdata,TimeData=newTimeData)
 >>>>>>> b24534a... solving new Bugs
         self.graphMainData()
+        self.updateData()
 
 <<<<<<< HEAD
         

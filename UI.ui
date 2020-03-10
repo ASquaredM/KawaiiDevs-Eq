@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1185</width>
+    <width>1259</width>
     <height>947</height>
    </rect>
   </property>
@@ -29,6 +29,25 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_13">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Opened Data</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QPushButton" name="OpenFileButton">
               <property name="maximumSize">
@@ -101,6 +120,25 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_18">
             <item>
+             <widget class="QLabel" name="label_14">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Modified Data</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="MainDataPlayButton">
               <property name="maximumSize">
                <size>
@@ -159,6 +197,25 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_19">
             <item>
+             <widget class="QLabel" name="label_15">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Saved Data 1</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="SavedData1PlayButton">
               <property name="maximumSize">
                <size>
@@ -216,6 +273,25 @@
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_20">
+            <item>
+             <widget class="QLabel" name="label_16">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Saved Data 2</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QPushButton" name="SavedData2PlayButton">
               <property name="maximumSize">
@@ -711,7 +787,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1185</width>
+     <width>1259</width>
      <height>22</height>
     </rect>
    </property>
