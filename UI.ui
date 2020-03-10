@@ -40,6 +40,12 @@
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QPushButton" name="OpenFileButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>Open File</string>
             </property>
@@ -47,15 +53,27 @@
           </item>
           <item>
            <widget class="QPushButton" name="PlayButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>Play</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="PauseButton">
+           <widget class="QPushButton" name="StopButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
-             <string>Pause</string>
+             <string>Stop</string>
             </property>
            </widget>
           </item>
@@ -63,7 +81,7 @@
            <widget class="QLabel" name="label_12">
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
+              <width>200</width>
               <height>20</height>
              </size>
             </property>
@@ -74,6 +92,12 @@
           </item>
           <item>
            <widget class="QComboBox" name="SaveMode">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <item>
              <property name="text">
               <string>To A File</string>
@@ -93,13 +117,38 @@
           </item>
           <item>
            <widget class="QPushButton" name="SaveButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>Save</string>
             </property>
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="LoadFromAQuickSaveButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Load From Save</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="CompareButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>Open The Comparer</string>
             </property>
@@ -109,7 +158,7 @@
            <widget class="QLabel" name="label_2">
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
+              <width>200</width>
               <height>20</height>
              </size>
             </property>
@@ -120,6 +169,12 @@
           </item>
           <item>
            <widget class="QComboBox" name="WindowMode">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <item>
              <property name="text">
               <string>Rectangular</string>
@@ -139,6 +194,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="ApplyEqualizerButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>Apply Equalizer</string>
             </property>

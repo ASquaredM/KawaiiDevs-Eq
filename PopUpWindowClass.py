@@ -7,8 +7,14 @@ import sounddevice as sd
 class Ui_PopUpWindow(UI.Ui_MainWindow):
     def __init__(self,mainWindow, MainData,SavedData1,SavedData2):
         super(Ui_PopUpWindow,self).setupUi(mainWindow)
+        def closeEvent(Event):
+            sd.stop()
+            Event.accept()
+        mainWindow.closeEvent = closeEvent
         
+        MainData.TimeData
         self.Data=[MainData,SavedData1,SavedData2]
+
         
         self.Widgets=[
             PlotWidget(self.MainDataTimeWidget,self.MainDataFFTWidget),
@@ -25,6 +31,7 @@ class Ui_PopUpWindow(UI.Ui_MainWindow):
         self.ClearWidget1Button.clicked.connect(lambda :self.clearWidget(1))
         self.ClearWidget2Button.clicked.connect(lambda :self.clearWidget(2))
         self.graphAll()
+
 
     def graphAll(self):
         for indexOfWidget in range(0,3):
@@ -44,8 +51,9 @@ class Ui_PopUpWindow(UI.Ui_MainWindow):
         self.Widgets[indexOfWidget].setHidden(True)
 
     def PlayWidget(self,indexOfWidget):
-        sd.stop()
-        sd.play(self.Data[indexOfWidget].TimeData,self.Data[indexOfWidget].SampleRate)
-
+        if self.Data[indexOfWidget].isNone() is False:
+            print("Hi")
+            sd.stop()
+            sd.play(self.Data[indexOfWidget].TimeData,self.Data[indexOfWidget].SampleRate)
 
 

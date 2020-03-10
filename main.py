@@ -62,6 +62,7 @@ from GetDataFromFile import getDataFromAFile , wavData
 from WidgetClass import PlotWidget
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
 
+
 #Init a gain for each band
 <<<<<<< HEAD
 Gains = [0,0,0,0,0,0,0,0,0,0]
@@ -74,14 +75,14 @@ Gains = np.ones(10)
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 #Freq. Spectrum Division (Setting Bands)
-"""Bands = np.array([[0,2000],[2000,4000],[4000,6000]
+Bands = np.array([[0,2000],[2000,4000],[4000,6000]
                     ,[6000,8000],[8000,10000],[10000,12000]
                     ,[12000,14000],[14000,16000],[16000,18000]
-                    ,[18000,22000]])"""
-Bands = np.array([[20,40],[40,80],[80,160]
+                    ,[18000,22000]])
+"""Bands = np.array([[20,40],[40,80],[80,160]
                     ,[160,300],[300,600],[600,1200]
                     ,[1200,2400],[2400,5000],[5000,10000]
-                    ,[10000,20000]])
+                    ,[10000,20000]])"""
 
 #Supported Window Functions
 Win_Fn = np.array(['Rectangular','Hamming','Hanning'])
@@ -150,7 +151,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.OpenFileButton.clicked.connect(self.OpenFile)
         self.OpenFileButton.clicked.connect(self.graphMainData)
         self.PlayButton.clicked.connect(self.generateSound)
-        self.PauseButton.clicked.connect(self.stopSound)
+        self.StopButton.clicked.connect(self.stopSound)
         self.SaveButton.clicked.connect(self.saveSoundFile)
         self.CompareButton.clicked.connect(self.OpenPopUpWindow)
 <<<<<<< HEAD
@@ -163,7 +164,9 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> 71640f8... Update
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
         self.OnOff.clicked.connect(self.slidersChangeState)
+        self.LoadFromAQuickSaveButton.clicked.connect(self.LoadFromAQuickSave)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     def OpenFile(self):
         Output = self.getData()
@@ -229,8 +232,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
 >>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
 =======
+=======
+        self.LoadFromAQuickSaveButton.setDisabled(True)
+>>>>>>> 50ce35d... Nearly Finished
         self.PlayButton.setDisabled(True)
-        self.PauseButton.setDisabled(True)
+        self.StopButton.setDisabled(True)
         self.SaveButton.setDisabled(True)
         self.CompareButton.setDisabled(True)
         self.OnOff.setDisabled(True)
@@ -268,10 +274,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.OpenedAFileEnable=True
         self.SaveMode.setEnabled(True)
         self.PlayButton.setEnabled(True)
-        self.PauseButton.setEnabled(True)
+        self.StopButton.setEnabled(True)
         self.SaveButton.setEnabled(True)
         self.CompareButton.setEnabled(True)
         self.OnOff.setEnabled(True)
+        self.LoadFromAQuickSaveButton.setEnabled(True)
         
     def updatePreEqualizerData(self):
         self.MainData.CopyFrom(self.OpenedData)
@@ -295,6 +302,19 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.SavedData1.CopyFrom(self.MainData)
         if SaveMode[indexOfSaveModes]=="Save2":
             self.SavedData2.CopyFrom(self.MainData)
+
+    def LoadFromAQuickSave(self):
+        indexOfSaveModes=self.SaveMode.currentIndex()
+        if SaveMode[indexOfSaveModes] == "To A File":
+            self.OpenFile()
+        if SaveMode[indexOfSaveModes] == "Save1" and self.SavedData1.isNone() is False :
+            self.MainData.CopyFrom(self.SavedData1)
+            #self.OpenedData.CopyFrom(self.)
+            self.graphMainData()
+        if SaveMode[indexOfSaveModes] == "Save2" and self.SavedData2.isNone() is False :
+            self.MainData.CopyFrom(self.SavedData2)
+            self.graphMainData()
+
 
     def OpenPopUpWindow(self):
 <<<<<<< HEAD
@@ -340,6 +360,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.mainWindow.show()
 >>>>>>> b24534a... solving new Bugs
 >>>>>>> a1ee32b... solving new Bugs
+
 
     def sliderInitialization(self):
         self.sliders=[
