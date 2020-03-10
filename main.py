@@ -71,6 +71,10 @@ Gains = np.ones(10)
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 #Freq. Spectrum Division (Setting Bands)
+"""Bands = np.array([[0,2000],[2000,4000],[4000,6000]
+                    ,[6000,8000],[8000,10000],[10000,12000]
+                    ,[12000,14000],[14000,16000],[16000,18000]
+                    ,[18000,22000]])"""
 Bands = np.array([[20,40],[40,80],[80,160]
                     ,[160,300],[300,600],[600,1200]
                     ,[1200,2400],[2400,5000],[5000,10000]
@@ -346,10 +350,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.Band9Slider,
             self.Band10Slider
         ]
-        self.WindowMode.setDisabled(True)
-        self.ApplyEqualizerButton.setDisabled(True)
-        self.slidersEnable=False
-        self.OnOff.setText("ON")
+        self.equalizerEnable(False)
 
         self.sliders[0].valueChanged.connect(lambda :self.edittingSliderValue(0))
         self.sliders[1].valueChanged.connect(lambda :self.edittingSliderValue(1))
@@ -431,20 +432,29 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
         if self.slidersEnable==False:
             self.equalizerEnable(True)
-            self.OnOff.setText("OFF")
         else:
-            for numberOfBand in range(0,10):
-                self.sliders[numberOfBand].setValue(50)
             self.equalizerEnable(False)
+<<<<<<< HEAD
             self.OnOff.setText("ON")
 >>>>>>> b24534a... solving new Bugs
+=======
+>>>>>>> a77e475... Breaking all the Work
 
     def equalizerEnable(self,boolian):
         for numberOfBand in range(0,10):
             self.sliders[numberOfBand].setEnabled(boolian)
+            if boolian is False:
+                self.sliders[numberOfBand].setValue(50)
         self.slidersEnable=boolian
         self.WindowMode.setEnabled(boolian)
         self.ApplyEqualizerButton.setEnabled(boolian)
+        if boolian is False:
+            self.OnOff.setText("ON")
+        else:
+            self.OnOff.setText("OFF")
+
+
+
 
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
