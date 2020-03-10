@@ -20,80 +20,120 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="PlotWidget" name="MainDataTimeWidget" native="true"/>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QPushButton" name="Data1PlayButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Play</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Data1StopButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Stop</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="PlotWidget" name="MainDataFFTWidget" native="true"/>
+         <widget class="PlotWidget" name="Data1TimeWidget" native="true"/>
+        </item>
+        <item>
+         <widget class="PlotWidget" name="Data1FFTWidget" native="true"/>
         </item>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="PlotWidget" name="SavedData1TimeWidget" native="true"/>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QPushButton" name="Data2PlayButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Play</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Data2StopButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Stop</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="PlotWidget" name="SavedData1FFTWidget" native="true"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QPushButton" name="PlayWidget1Button">
-          <property name="text">
-           <string>Play</string>
-          </property>
-         </widget>
+         <widget class="PlotWidget" name="Data2TimeWidget" native="true"/>
         </item>
         <item>
-         <widget class="QPushButton" name="LoadFiletoWidget1Button">
-          <property name="text">
-           <string>Load A File</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="ClearWidget1Button">
-          <property name="text">
-           <string>Clear Plot</string>
-          </property>
-         </widget>
+         <widget class="PlotWidget" name="Data2FFTWidget" native="true"/>
         </item>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <widget class="PlotWidget" name="SavedData2TimeWidget" native="true"/>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QPushButton" name="ComparePlayButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Play</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="CompareStopButton">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Stop</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="PlotWidget" name="SavedData2FFTWidget" native="true"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QPushButton" name="PlayWidget2Button">
-          <property name="text">
-           <string>Play</string>
-          </property>
-         </widget>
+         <widget class="PlotWidget" name="CompareTimeWidget" native="true"/>
         </item>
         <item>
-         <widget class="QPushButton" name="LoadFiletoWidget2Button">
-          <property name="text">
-           <string>Load A File</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="ClearWidget2Button">
-          <property name="text">
-           <string>Clear Plot</string>
-          </property>
-         </widget>
+         <widget class="PlotWidget" name="CompareFFTWidget" native="true"/>
         </item>
        </layout>
       </item>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1191</width>
-    <height>777</height>
+    <width>1185</width>
+    <height>947</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,431 +16,693 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_17">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <widget class="QTabWidget" name="TabViews">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="SignalViewer">
+       <attribute name="title">
+        <string>Signals Viewer</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="PlotWidget" name="MainDataTimeWidget" native="true"/>
-        </item>
-        <item>
-         <widget class="PlotWidget" name="MainDataFFTWidget" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>200</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="OpenFileButton">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Open File</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QPushButton" name="OpenFileButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Open File</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="OpenedDataPlayButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Play</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="OpenedDataStopButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Stop</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QPushButton" name="PlayButton">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Play</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="StopButton">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Stop</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_12">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Save Mode:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="SaveMode">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <property name="text">
-              <string>To A File</string>
-             </property>
+             <widget class="PlotWidget" name="OpenedDataTimeWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>QuickSave1</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>QuickSave2</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="SaveButton">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Save</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="LoadFromAQuickSaveButton">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Load From Save</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="CompareButton">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Open The Comparer</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Window Mode:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="WindowMode">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <item>
-             <property name="text">
-              <string>Rectangular</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Hamming</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Hanning</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="ApplyEqualizerButton">
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Apply Equalizer</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QPushButton" name="OnOff">
-            <property name="text">
-             <string>ON</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <item>
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>30 Hz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band1Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>60 Hz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band2Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>120 Hz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band3Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_12">
-              <item>
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>230 Hz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band4Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_15">
-              <item>
-               <widget class="QLabel" name="label_11">
-                <property name="text">
-                 <string>450 Hz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band5Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_14">
-              <item>
-               <widget class="QLabel" name="label_10">
-                <property name="text">
-                 <string>900 KHz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band6Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_13">
-              <item>
-               <widget class="QLabel" name="label_9">
-                <property name="text">
-                 <string>1.8 KHz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band7Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>3.7 KHz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band8Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_11">
-              <item>
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>7.5 KHz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band9Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_7">
-              <item>
-               <widget class="QLabel" name="label_3">
-                <property name="styleSheet">
-                 <string notr="true"/>
-                </property>
-                <property name="text">
-                 <string>15 KHz</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSlider" name="Band10Slider">
-                <property name="styleSheet">
-                 <string notr="true">margin:auto;</string>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_16"/>
+             <widget class="PlotWidget" name="OpenedDataFFTWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
          </layout>
         </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_18">
+            <item>
+             <widget class="QPushButton" name="MainDataPlayButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Play</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="MainDataStopButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Stop</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="PlotWidget" name="MainDataTimeWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="PlotWidget" name="MainDataFFTWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_19">
+            <item>
+             <widget class="QPushButton" name="SavedData1PlayButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Play</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="SavedData1StopButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Stop</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="PlotWidget" name="SavedData1TimeWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="PlotWidget" name="SavedData1FFTWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_20">
+            <item>
+             <widget class="QPushButton" name="SavedData2PlayButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Play</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="SavedData2StopButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Stop</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <widget class="PlotWidget" name="SavedData2TimeWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="PlotWidget" name="SavedData2FFTWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>150</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QComboBox" name="Data1ComboBox">
+            <item>
+             <property name="text">
+              <string>Original Data</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Main Data</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Quick Save 1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Quick Save 2</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="CompareToButton">
+            <property name="text">
+             <string>Compare to</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="Data2ComboBox">
+            <item>
+             <property name="text">
+              <string>Original Data</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Main Data</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Quick Save 1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Quick Save 2</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
-      </item>
-     </layout>
+      </widget>
+      <widget class="QWidget" name="Equalizer">
+       <attribute name="title">
+        <string>Equalizer</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="PlotWidget" name="EqualizerDataTimeWidget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>200</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="PlotWidget" name="EqualizerDataFFTWidget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>200</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QPushButton" name="ResetButton">
+              <property name="text">
+               <string>Reset</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="CompareToOpenedDataButton">
+              <property name="text">
+               <string>Comare with Original Data</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_12">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Save Mode:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="SaveMode">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <item>
+               <property name="text">
+                <string>To A File</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>QuickSave1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>QuickSave2</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="SaveButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Save</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Window Mode:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="WindowMode">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <item>
+               <property name="text">
+                <string>Rectangular</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Hamming</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Hanning</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="ApplyEqualizerButton">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Apply Equalizer</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>20 Hz-2 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band1Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>2 KHz-4 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band2Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>4 KHz-6 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band3Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>6 KHz-8 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band4Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_15">
+            <item>
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>8 KHz-10 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band5Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_14">
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>10 KHz-12 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band6Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_13">
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>12 KHz-14 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band7Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>14 KHz-16 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band8Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>16 KHz-18 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band9Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>18 KHz-22 KHz</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="Band10Slider">
+              <property name="styleSheet">
+               <string notr="true">margin:auto;</string>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_16"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -449,7 +711,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1191</width>
+     <width>1185</width>
      <height>22</height>
     </rect>
    </property>

@@ -75,7 +75,7 @@ Gains = np.ones(10)
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
 #Freq. Spectrum Division (Setting Bands)
-Bands = np.array([[0,2000],[2000,4000],[4000,6000]
+Bands = np.array([[20,2000],[2000,4000],[4000,6000]
                     ,[6000,8000],[8000,10000],[10000,12000]
                     ,[12000,14000],[14000,16000],[16000,18000]
                     ,[18000,22000]])
@@ -83,7 +83,7 @@ Bands = np.array([[0,2000],[2000,4000],[4000,6000]
                     ,[160,300],[300,600],[600,1200]
                     ,[1200,2400],[2400,5000],[5000,10000]
                     ,[10000,20000]])"""
-
+DataBox=np.array(['Original Data','Main Data','Quick Save 1',"Quick Save 2"])
 #Supported Window Functions
 Win_Fn = np.array(['Rectangular','Hamming','Hanning'])
 
@@ -94,7 +94,22 @@ SaveMode=np.array(["To A File","Save1","Save2"])
 class ApplicationWindow(UI.Ui_MainWindow):
     def __init__(self,mainWindow):
         super(ApplicationWindow,self).setupUi(mainWindow)
-        self.Widget=PlotWidget(self.MainDataTimeWidget,self.MainDataFFTWidget)
+        
+        self.Widgets=[
+            PlotWidget(self.OpenedDataTimeWidget,self.OpenedDataFFTWidget,self.OpenedDataPlayButton,self.OpenedDataStopButton),
+            PlotWidget(self.MainDataTimeWidget,self.MainDataFFTWidget,self.MainDataPlayButton,self.MainDataStopButton),
+            PlotWidget(self.SavedData1TimeWidget,self.SavedData1FFTWidget,self.SavedData1PlayButton,self.SavedData1StopButton),
+            PlotWidget(self.SavedData2TimeWidget,self.SavedData2FFTWidget,self.SavedData2PlayButton,self.SavedData2StopButton),
+            PlotWidget(self.EqualizerDataTimeWidget,self.EqualizerDataFFTWidget)
+        ]
+        self.OpenedData=wavData()
+        self.MainData=wavData()
+        self.SavedData1=wavData()
+        self.SavedData2=wavData()
+
+        self.Data=[self.OpenedData,self.MainData,self.SavedData1,self.SavedData2]
+        
+
         self.VariableInitialization()
         self.ButtonInitialization()
         self.sliderInitialization()
@@ -115,6 +130,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
 =======
         self.OpenedAFileEnable=False
+<<<<<<< HEAD
 <<<<<<< HEAD
         self.MainData=None
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
@@ -143,6 +159,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.SavedData2=wavData()
         self.OpenedData=wavData()
 >>>>>>> 3e867be... fixing
+=======
+>>>>>>> 7bff587... Adding Better UX
         
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
 >>>>>>> beccabf... improving modularity adding new bugs to fux later
@@ -150,9 +168,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def ButtonInitialization(self):
         self.OpenFileButton.clicked.connect(self.OpenFile)
         self.OpenFileButton.clicked.connect(self.graphMainData)
-        self.PlayButton.clicked.connect(self.generateSound)
-        self.StopButton.clicked.connect(self.stopSound)
         self.SaveButton.clicked.connect(self.saveSoundFile)
+<<<<<<< HEAD
         self.CompareButton.clicked.connect(self.OpenPopUpWindow)
 <<<<<<< HEAD
         #self.CompareButton.clicked.connect(self.compareToAFile)
@@ -241,6 +258,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.CompareButton.setDisabled(True)
         self.OnOff.setDisabled(True)
         self.SaveMode.setDisabled(True)
+=======
+        self.ResetButton.clicked.connect(self.ResetMainData)
+        self.CompareToButton.clicked.connect(self.OpenPopUpWindow)
+
+>>>>>>> 7bff587... Adding Better UX
 
 <<<<<<< HEAD
     def EnableButtons(self):
@@ -261,38 +283,28 @@ class ApplicationWindow(UI.Ui_MainWindow):
 
     def OpenFile(self):
         #to stop playing the old music#
-        self.stopSound()
+        sd.stop()
         #Get the Data from the File#
         filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;")
         self.MainData= getDataFromAFile(filePath) if getDataFromAFile(filePath) is not None else self.MainData
         self.MainData.print()
         self.OpenedData.CopyFrom(self.MainData)
-        if self.OpenedAFileEnable is False and self.MainData is not None:
-            self.EnableButtons()
+        self.updateData()
 
-    def EnableButtons(self):
-        self.OpenedAFileEnable=True
-        self.SaveMode.setEnabled(True)
-        self.PlayButton.setEnabled(True)
-        self.StopButton.setEnabled(True)
-        self.SaveButton.setEnabled(True)
-        self.CompareButton.setEnabled(True)
-        self.OnOff.setEnabled(True)
-        self.LoadFromAQuickSaveButton.setEnabled(True)
-        
     def updatePreEqualizerData(self):
         self.MainData.CopyFrom(self.OpenedData)
 
     def graphMainData(self):
-        self.Widget.Graph(self.MainData)
+        self.Widgets[1].Graph(self.MainData)
+        self.Widgets[4].Graph(self.MainData)
 
-    def generateSound(self):
-        sd.stop()
-        sd.play(self.MainData.TimeData,self.MainData.SampleRate)
-            
-    def stopSound(self):
-        sd.stop()
-    
+    def updateData(self):
+        self.Data=[self.OpenedData,self.MainData,self.SavedData1,self.SavedData2]
+
+
+    def ResetMainData(self):
+        self.MainData.CopyFrom(self.OpenedData)
+
     def saveSoundFile(self):
         indexOfSaveModes=self.SaveMode.currentIndex()
         if SaveMode[indexOfSaveModes]=="To A File":
@@ -302,19 +314,6 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.SavedData1.CopyFrom(self.MainData)
         if SaveMode[indexOfSaveModes]=="Save2":
             self.SavedData2.CopyFrom(self.MainData)
-
-    def LoadFromAQuickSave(self):
-        indexOfSaveModes=self.SaveMode.currentIndex()
-        if SaveMode[indexOfSaveModes] == "To A File":
-            self.OpenFile()
-        if SaveMode[indexOfSaveModes] == "Save1" and self.SavedData1.isNone() is False :
-            self.MainData.CopyFrom(self.SavedData1)
-            #self.OpenedData.CopyFrom(self.)
-            self.graphMainData()
-        if SaveMode[indexOfSaveModes] == "Save2" and self.SavedData2.isNone() is False :
-            self.MainData.CopyFrom(self.SavedData2)
-            self.graphMainData()
-
 
     def OpenPopUpWindow(self):
 <<<<<<< HEAD
@@ -355,12 +354,13 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
 =======
         print("Opening a new popup window...")
+        indexOfData1=self.Data1ComboBox.currentIndex()
+        indexOfData2=self.Data2ComboBox.currentIndex()
         self.mainWindow=QtWidgets.QMainWindow()
-        self.PopUp = Ui_PopUpWindow(self.mainWindow,self.MainData,self.SavedData1,self.SavedData2)
+        self.PopUp = Ui_PopUpWindow(self.mainWindow,self.Data[indexOfData1],self.Data[indexOfData2])
         self.mainWindow.show()
 >>>>>>> b24534a... solving new Bugs
 >>>>>>> a1ee32b... solving new Bugs
-
 
     def sliderInitialization(self):
         self.sliders=[
@@ -375,7 +375,6 @@ class ApplicationWindow(UI.Ui_MainWindow):
             self.Band9Slider,
             self.Band10Slider
         ]
-        self.equalizerEnable(False)
 
         self.sliders[0].valueChanged.connect(lambda :self.edittingSliderValue(0))
         self.sliders[1].valueChanged.connect(lambda :self.edittingSliderValue(1))
@@ -387,6 +386,16 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.sliders[7].valueChanged.connect(lambda :self.edittingSliderValue(7))
         self.sliders[8].valueChanged.connect(lambda :self.edittingSliderValue(8))
         self.sliders[9].valueChanged.connect(lambda :self.edittingSliderValue(9))
+        """self.sliders[0].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[1].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[2].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[3].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[4].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[5].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[6].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[7].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[8].valueChanged.connect(self.ApplyEqualizer)
+        self.sliders[9].valueChanged.connect(self.ApplyEqualizer)"""
 
 <<<<<<< HEAD
         self.ApplyEqualizerButton.clicked.connect(self.ApplyEqualizer)
@@ -402,9 +411,9 @@ class ApplicationWindow(UI.Ui_MainWindow):
         for numberOfBand in range(0,10):
             self.sliders[numberOfBand].setRange(0,100)
             self.sliders[numberOfBand].setValue(50)
-            self.sliders[numberOfBand].setDisabled(True)
             #self.sliders[numberOfBand].valueChanged.connect(lambda :self.edittingSliderValue(numberOfBand))
 
+<<<<<<< HEAD
     def slidersChangeState(self):
 <<<<<<< HEAD
         if self.MainData is not None:
@@ -481,6 +490,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
 
 
 
+=======
+>>>>>>> 7bff587... Adding Better UX
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
         print(Gains)
@@ -515,6 +526,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> b24534a... solving new Bugs
         self.graphMainData()
 
+<<<<<<< HEAD
         
         
 <<<<<<< HEAD
@@ -523,6 +535,8 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 
         
+=======
+>>>>>>> 7bff587... Adding Better UX
 def main():
     app=QtWidgets.QApplication(sys.argv)
     mainWindow=QtWidgets.QMainWindow()

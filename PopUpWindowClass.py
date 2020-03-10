@@ -1,51 +1,46 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import PopUpWindow as UI
 import sys
-from GetDataFromFile import getDataFromAFile, wavData
+from GetDataFromFile import wavData
 from WidgetClass import PlotWidget
 import sounddevice as sd
 class Ui_PopUpWindow(UI.Ui_MainWindow):
-    def __init__(self,mainWindow, MainData,SavedData1,SavedData2):
+    def __init__(self,mainWindow, Data1,Data2):
         super(Ui_PopUpWindow,self).setupUi(mainWindow)
         def closeEvent(Event):
             sd.stop()
             Event.accept()
         mainWindow.closeEvent = closeEvent
+        print(Data1.isNone(),Data2.isNone())
+        if Data1.isNone() or Data2.isNone():
+            mainWindow.close()
         
-        MainData.TimeData
-        self.Data=[MainData,SavedData1,SavedData2]
+        CompareTimeData=Data1.TimeData-Data2.TimeData
+        CompareFFTData=Data1.FFTData-Data2.FFTData
+        CompareData=wavData(TimeData=CompareTimeData,FFTData=CompareFFTData,freqs=Data1.freqs,SampleRate=Data1.SampleRate,FileName='',FilePath='')
+
+        
+
+        self.Data=[Data1,Data2,CompareData]
 
         
         self.Widgets=[
-            PlotWidget(self.MainDataTimeWidget,self.MainDataFFTWidget),
-            PlotWidget(self.SavedData1TimeWidget,self.SavedData1FFTWidget),
-            PlotWidget(self.SavedData2TimeWidget,self.SavedData2FFTWidget)]
+            PlotWidget(self.Data1TimeWidget,self.Data1FFTWidget,self.Data1PlayButton,self.Data1StopButton),
+            PlotWidget(self.Data2TimeWidget,self.Data2FFTWidget,self.Data2PlayButton,self.Data2StopButton),
+            PlotWidget(self.CompareTimeWidget,self.CompareFFTWidget,self.ComparePlayButton,self.CompareStopButton)
+        ]
         
-        for i in range(0,3):
-            self.Widgets[i].setHidden(True)
-        
-        self.PlayWidget1Button.clicked.connect(lambda : self.PlayWidget(1))
-        self.PlayWidget1Button.clicked.connect(lambda : self.PlayWidget(2))
-        self.LoadFiletoWidget1Button.clicked.connect(lambda : self.LoadFile(1))
-        self.LoadFiletoWidget2Button.clicked.connect(lambda : self.LoadFile(2))
-        self.ClearWidget1Button.clicked.connect(lambda :self.clearWidget(1))
-        self.ClearWidget2Button.clicked.connect(lambda :self.clearWidget(2))
+        """for i in range(0,3):
+            self.Widgets[i].setHidden(True)"""
         self.graphAll()
 
 
     def graphAll(self):
         for indexOfWidget in range(0,3):
-            if self.Data[indexOfWidget] is not None:
-                self.Widgets[indexOfWidget].setHidden(False)
+            print("Hi")
+            if self.Data[indexOfWidget].isNone() is False:
+                """self.Widgets[indexOfWidget].setHidden(False)"""
                 self.Widgets[indexOfWidget].Graph(self.Data[indexOfWidget])
-        
-    def LoadFile(self,indexOfWidget):
-        filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;")
-        data=getDataFromAFile(filePath)
-        if data is not None:
-            self.Data[indexOfWidget]=data
-            self.Widgets[indexOfWidget].Graph(data)
-            self.Widgets[indexOfWidget].setHidden(False)
 
     def clearWidget(self,indexOfWidget):
         self.Widgets[indexOfWidget].setHidden(True)
