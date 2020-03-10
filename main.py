@@ -221,9 +221,11 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.SaveButton.setDisabled(True)
         self.CompareButton.setDisabled(True)
         self.OnOff.setDisabled(True)
+        self.SaveMode.setDisabled(True)
 
     def EnableButtons(self):
         self.OpenedAFileEnable=True
+        self.SaveMode.setEnabled(True)
         self.PlayButton.setEnabled(True)
         self.PauseButton.setEnabled(True)
         self.SaveButton.setEnabled(True)
@@ -240,7 +242,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.MainData= getDataFromAFile(filePath) if getDataFromAFile(filePath) is not None else self.MainData
         print(self.MainData )
         self.OpenedData= self.MainData
-        if self.OpenedAFileEnable is  False:
+        if self.OpenedAFileEnable is False and self.MainData is not None:
             self.EnableButtons()
 
     def updatePreEqualizerData(self):
@@ -250,25 +252,23 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.Widget.Graph(self.MainData)
 
     def generateSound(self):
-        if self.MainData is not None:
-            sd.play(self.MainData.TimeData,self.MainData.SampleRate)
+        sd.play(self.MainData.TimeData,self.MainData.SampleRate)
             
     def pauseSound(self):
-        if self.MainData is not None:
-            sd.stop()
+        sd.stop()
     
     def saveSoundFile(self):
-        if self.MainData is not None:
-            indexOfSaveModes=self.SaveMode.currentIndex()
-            if SaveMode[indexOfSaveModes]=="To A File":
-                name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.MainData.FilePath+".wav")[0]
-                sio.wavfile.write(name, self.MainData.SampleRate, self.MainData.TimeData)
-            if SaveMode[indexOfSaveModes]=="Save1":
-                self.SavedData1=self.MainData
-            if SaveMode[indexOfSaveModes]=="Save2":
-                self.SavedData2=self.MainData
+        indexOfSaveModes=self.SaveMode.currentIndex()
+        if SaveMode[indexOfSaveModes]=="To A File":
+            name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.MainData.FilePath+".wav")[0]
+            sio.wavfile.write(name, self.MainData.SampleRate, self.MainData.TimeData)
+        if SaveMode[indexOfSaveModes]=="Save1":
+            self.SavedData1=self.MainData
+        if SaveMode[indexOfSaveModes]=="Save2":
+            self.SavedData2=self.MainData
 
     def OpenPopUpWindow(self):
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         BuildPopUpWindow(self.MainData,self.SavedData1,self.SavedData2)
@@ -300,10 +300,19 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> ef09d7a... PopUp Functions
 =======
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+        print("Opening a new popup window...")
+        self.mainWindow=QtWidgets.QMainWindow()
+        self.PopUp = Ui_PopUpWindow(self.mainWindow,self.MainData,self.SavedData1,self.SavedData2)
+        self.mainWindow.show()
+>>>>>>> b24534a... solving new Bugs
+>>>>>>> a1ee32b... solving new Bugs
 
     def sliderInitialization(self):
-
         self.sliders=[
             self.Band1Slider,
             self.Band2Slider,
@@ -350,6 +359,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
             #self.sliders[numberOfBand].valueChanged.connect(lambda :self.edittingSliderValue(numberOfBand))
 
     def slidersChangeState(self):
+<<<<<<< HEAD
         if self.MainData is not None:
             if self.slidersEnable==False:
                 for numberOfBand in range(0,10):
@@ -397,6 +407,23 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> 139670e... push
                 self.slidersEnable=False
                 self.OnOff.setText("ON")
+=======
+        if self.slidersEnable==False:
+            for numberOfBand in range(0,10):
+                self.sliders[numberOfBand].setEnabled(True)
+            self.slidersEnable=True
+            self.WindowMode.setEnabled(True)
+            self.ApplyEqualizerButton.setEnabled(True)
+            self.OnOff.setText("OFF")
+        else:
+            for numberOfBand in range(0,10):
+                self.sliders[numberOfBand].setDisabled(True)
+                self.sliders[numberOfBand].setValue(50)
+            self.WindowMode.setDisabled(True)
+            self.ApplyEqualizerButton.setDisabled(True)
+            self.slidersEnable=False
+            self.OnOff.setText("ON")
+>>>>>>> b24534a... solving new Bugs
 
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
@@ -418,8 +445,12 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.updatePreEqualizerData()
         newFFTdata=WF(windowMode,self.MainData.freqs,Bands,Gains,self.MainData.FFTData)
         newTimeData=np.real(fftpk.ifft(newFFTdata))
+<<<<<<< HEAD
         self.MainData.assignAll(FFTData=newFFTdata)
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
+=======
+        self.MainData.assignAll(FFTData=newFFTdata,TimeData=newTimeData)
+>>>>>>> b24534a... solving new Bugs
         self.graphMainData()
         
         

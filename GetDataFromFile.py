@@ -10,7 +10,8 @@ class wavData:
     def __init__(self,TimeData,FFTData,freqs,SampleRate,FileName,FilePath):
         self.assignAll(TimeData,FFTData,freqs,SampleRate,FileName,FilePath)
 
-    def assignAll(self=None,TimeData=None,FFTData=None,freqs=None,SampleRate=None,FileName=None,FilePath=None):
+    def assignAll(self,TimeData=None,FFTData=None,freqs=None,SampleRate=None,FileName=None,FilePath=None):
+        
         if TimeData is not None:
             self.TimeData= TimeData
         if FFTData is not None:
