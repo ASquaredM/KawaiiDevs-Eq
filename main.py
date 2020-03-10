@@ -90,7 +90,6 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.VariableInitialization()
         self.ButtonInitialization()
         self.sliderInitialization()
-        self.MainDataTimeWidget
 
     def VariableInitialization(self):
         self.slidersEnable=False
@@ -108,6 +107,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
 =======
         self.OpenedAFileEnable=False
+<<<<<<< HEAD
         self.MainData=None
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
         self.SavedData1=None
@@ -129,6 +129,12 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> a8ab156... Fixing Equalizer Stability
 =======
 =======
+=======
+        self.MainData=wavData()
+        self.SavedData1=wavData()
+        self.SavedData2=wavData()
+        self.OpenedData=wavData()
+>>>>>>> 3e867be... fixing
         
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
 >>>>>>> beccabf... improving modularity adding new bugs to fux later
@@ -137,7 +143,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.OpenFileButton.clicked.connect(self.OpenFile)
         self.OpenFileButton.clicked.connect(self.graphMainData)
         self.PlayButton.clicked.connect(self.generateSound)
-        self.PauseButton.clicked.connect(self.pauseSound)
+        self.PauseButton.clicked.connect(self.stopSound)
         self.SaveButton.clicked.connect(self.saveSoundFile)
         self.CompareButton.clicked.connect(self.OpenPopUpWindow)
 <<<<<<< HEAD
@@ -223,6 +229,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.OnOff.setDisabled(True)
         self.SaveMode.setDisabled(True)
 
+<<<<<<< HEAD
     def EnableButtons(self):
         self.OpenedAFileEnable=True
         self.SaveMode.setEnabled(True)
@@ -232,21 +239,35 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.CompareButton.setEnabled(True)
         self.OnOff.setEnabled(True)
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
+<<<<<<< HEAD
 >>>>>>> beccabf... improving modularity adding new bugs to fux later
+=======
+=======
+>>>>>>> 3e867be... fixing
+>>>>>>> 018b4a2... fixing
 
     def OpenFile(self):
         #to stop playing the old music#
-        sd.stop()
+        self.stopSound()
         #Get the Data from the File#
         filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;")
         self.MainData= getDataFromAFile(filePath) if getDataFromAFile(filePath) is not None else self.MainData
-        print(self.MainData )
-        self.OpenedData= self.MainData
+        print(self.MainData)
+        self.OpenedData.CopyFrom(self.MainData)
         if self.OpenedAFileEnable is False and self.MainData is not None:
             self.EnableButtons()
 
+    def EnableButtons(self):
+        self.OpenedAFileEnable=True
+        self.SaveMode.setEnabled(True)
+        self.PlayButton.setEnabled(True)
+        self.PauseButton.setEnabled(True)
+        self.SaveButton.setEnabled(True)
+        self.CompareButton.setEnabled(True)
+        self.OnOff.setEnabled(True)
+        
     def updatePreEqualizerData(self):
-        self.MainData=self.OpenedData
+        self.MainData.CopyFrom(self.OpenedData)
 
     def graphMainData(self):
         self.Widget.Graph(self.MainData)
@@ -254,7 +275,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
     def generateSound(self):
         sd.play(self.MainData.TimeData,self.MainData.SampleRate)
             
-    def pauseSound(self):
+    def stopSound(self):
         sd.stop()
     
     def saveSoundFile(self):
@@ -409,21 +430,21 @@ class ApplicationWindow(UI.Ui_MainWindow):
                 self.OnOff.setText("ON")
 =======
         if self.slidersEnable==False:
-            for numberOfBand in range(0,10):
-                self.sliders[numberOfBand].setEnabled(True)
-            self.slidersEnable=True
-            self.WindowMode.setEnabled(True)
-            self.ApplyEqualizerButton.setEnabled(True)
+            self.equalizerEnable(True)
             self.OnOff.setText("OFF")
         else:
             for numberOfBand in range(0,10):
-                self.sliders[numberOfBand].setDisabled(True)
                 self.sliders[numberOfBand].setValue(50)
-            self.WindowMode.setDisabled(True)
-            self.ApplyEqualizerButton.setDisabled(True)
-            self.slidersEnable=False
+            self.equalizerEnable(False)
             self.OnOff.setText("ON")
 >>>>>>> b24534a... solving new Bugs
+
+    def equalizerEnable(self,boolian):
+        for numberOfBand in range(0,10):
+            self.sliders[numberOfBand].setEnabled(boolian)
+        self.slidersEnable=boolian
+        self.WindowMode.setEnabled(boolian)
+        self.ApplyEqualizerButton.setEnabled(boolian)
 
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50

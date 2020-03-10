@@ -7,11 +7,10 @@ from PyQt5 import QtWidgets, QtCore
 
 
 class wavData:
-    def __init__(self,TimeData,FFTData,freqs,SampleRate,FileName,FilePath):
+    def __init__(self,TimeData=None,FFTData=None,freqs=None,SampleRate=None,FileName=None,FilePath=None):
         self.assignAll(TimeData,FFTData,freqs,SampleRate,FileName,FilePath)
 
     def assignAll(self,TimeData=None,FFTData=None,freqs=None,SampleRate=None,FileName=None,FilePath=None):
-        
         if TimeData is not None:
             self.TimeData= TimeData
         if FFTData is not None:
@@ -24,6 +23,14 @@ class wavData:
             self.FileName= FileName
         if FilePath is not None:
             self.FilePath= FilePath
+    def CopyFrom(self,OriginalData):
+        self.assignAll(
+        TimeData= OriginalData.TimeData,
+        FFTData= OriginalData.FFTData,
+        freqs= OriginalData.freqs,
+        SampleRate= OriginalData.SampleRate,
+        FileName=OriginalData.FileName,
+        FilePath= OriginalData.FilePath)
 
 def getDataFromAFile(filePath):
     filePath=filePath[0]
