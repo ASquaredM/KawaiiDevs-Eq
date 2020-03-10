@@ -3,6 +3,7 @@ import PopUpWindow as UI
 import sys
 from GetDataFromFile import getDataFromAFile, wavData
 from WidgetClass import PlotWidget
+import sounddevice as sd
 class Ui_PopUpWindow(UI.Ui_MainWindow):
     def __init__(self,mainWindow, MainData,SavedData1,SavedData2):
         super(Ui_PopUpWindow,self).setupUi(mainWindow)
@@ -17,6 +18,8 @@ class Ui_PopUpWindow(UI.Ui_MainWindow):
         for i in range(0,3):
             self.Widgets[i].setHidden(True)
         
+        self.PlayWidget1Button.clicked.connect(lambda : self.PlayWidget(1))
+        self.PlayWidget1Button.clicked.connect(lambda : self.PlayWidget(2))
         self.LoadFiletoWidget1Button.clicked.connect(lambda : self.LoadFile(1))
         self.LoadFiletoWidget2Button.clicked.connect(lambda : self.LoadFile(2))
         self.ClearWidget1Button.clicked.connect(lambda :self.clearWidget(1))
@@ -39,5 +42,10 @@ class Ui_PopUpWindow(UI.Ui_MainWindow):
 
     def clearWidget(self,indexOfWidget):
         self.Widgets[indexOfWidget].setHidden(True)
+
+    def PlayWidget(self,indexOfWidget):
+        sd.stop()
+        sd.play(self.Data[indexOfWidget].TimeData,self.Data[indexOfWidget].SampleRate)
+
 
 

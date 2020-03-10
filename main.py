@@ -7,8 +7,11 @@
 >>>>>>> 71640f8... Update
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
 import UI
+<<<<<<< HEAD
 import wave
 #import untitled
+=======
+>>>>>>> 8e7ab62... Fixing Bugs and addding new Bugs
 from PyQt5 import QtWidgets, QtCore
 from pyqtgraph.Qt import QtGui, QtCore
 import numpy as np
@@ -256,7 +259,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         #Get the Data from the File#
         filePath=QtWidgets.QFileDialog.getOpenFileName(None,  'load', "./","All Files *;;" "*.wav;;")
         self.MainData= getDataFromAFile(filePath) if getDataFromAFile(filePath) is not None else self.MainData
-        print(self.MainData)
+        self.MainData.print()
         self.OpenedData.CopyFrom(self.MainData)
         if self.OpenedAFileEnable is False and self.MainData is not None:
             self.EnableButtons()
@@ -277,6 +280,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
         self.Widget.Graph(self.MainData)
 
     def generateSound(self):
+        sd.stop()
         sd.play(self.MainData.TimeData,self.MainData.SampleRate)
             
     def stopSound(self):
@@ -288,9 +292,9 @@ class ApplicationWindow(UI.Ui_MainWindow):
             name= QtGui.QFileDialog.getSaveFileName( None,'Save File',self.MainData.FilePath+".wav")[0]
             sio.wavfile.write(name, self.MainData.SampleRate, self.MainData.TimeData)
         if SaveMode[indexOfSaveModes]=="Save1":
-            self.SavedData1=self.MainData
+            self.SavedData1.CopyFrom(self.MainData)
         if SaveMode[indexOfSaveModes]=="Save2":
-            self.SavedData2=self.MainData
+            self.SavedData2.CopyFrom(self.MainData)
 
     def OpenPopUpWindow(self):
 <<<<<<< HEAD
@@ -458,6 +462,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
 
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
+        print(Gains)
 
 <<<<<<< HEAD
 =======
@@ -465,6 +470,7 @@ class ApplicationWindow(UI.Ui_MainWindow):
 =======
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
     def ApplyEqualizer(self):
+        sd.stop()
         windowMode=Win_Fn[self.WindowMode.currentIndex()]
 <<<<<<< HEAD
         self.updateEqualizedData()
@@ -477,12 +483,17 @@ class ApplicationWindow(UI.Ui_MainWindow):
         newFFTdata=WF(windowMode,self.MainData.freqs,Bands,Gains,self.MainData.FFTData)
         newTimeData=np.real(fftpk.ifft(newFFTdata))
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.MainData.assignAll(FFTData=newFFTdata)
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
 =======
+=======
+        print(newTimeData,newFFTdata)
+>>>>>>> 8e7ab62... Fixing Bugs and addding new Bugs
         self.MainData.assignAll(FFTData=newFFTdata,TimeData=newTimeData)
 >>>>>>> b24534a... solving new Bugs
         self.graphMainData()
+
         
         
 <<<<<<< HEAD

@@ -98,16 +98,16 @@ def Rec_Fn(data,freq,Bands,Gains,stp):
 >>>>>>> 97feae1... Window Function Fix Fix
         BW = high - low
         Shaper_Arr_Size = len_freq - high
-        print('low =' , low)
-        print('high =' , high)
-        print('BW =' , BW)
-        print('Sha =' , Shaper_Arr_Size)
+        #print('low =' , low)
+        #print('high =' , high)
+        #print('BW =' , BW)
+        #print('Sha =' , Shaper_Arr_Size)
         if Shaper_Arr_Size > 0 :
             Shaper_Arr = np.zeros((Shaper_Arr_Size),dtype=complex)
             Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex),Shaper_Arr),axis=0)
         else:
             BW = len_freq - low
-            print('BW =' , BW)
+            #print('BW =' , BW)
             Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex)),axis=0)
         Win_data += (Win_Fn_Arr*data*Gains[itr_outer])
 =======

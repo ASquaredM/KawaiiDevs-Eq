@@ -3,7 +3,8 @@ class PlotWidget:
         self.TimeWidget= TimeWidget
         self.FFTWidget= FFTWidget
     def Graph(self,Data):
-        if Data is not None and Data is not None:
+        if Data.isNone() is False:
+            print(Data.FFTData)
             self.TimeWidget.plotItem.clear()
             self.TimeWidget.plotItem.plot(Data.TimeData)
             self.FFTWidget.plotItem.clear()

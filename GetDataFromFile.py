@@ -8,7 +8,11 @@ from PyQt5 import QtWidgets, QtCore
 
 class wavData:
     def __init__(self,TimeData=None,FFTData=None,freqs=None,SampleRate=None,FileName=None,FilePath=None):
+        if TimeData is None and FFTData is None and freqs is None and SampleRate is None and FileName is None and FilePath is None:
+            self.IsNone=True
+            return
         self.assignAll(TimeData,FFTData,freqs,SampleRate,FileName,FilePath)
+        self.IsNone=False
 
     def assignAll(self,TimeData=None,FFTData=None,freqs=None,SampleRate=None,FileName=None,FilePath=None):
         if TimeData is not None:
@@ -23,6 +27,9 @@ class wavData:
             self.FileName= FileName
         if FilePath is not None:
             self.FilePath= FilePath
+        self.IsNone=False
+
+
     def CopyFrom(self,OriginalData):
         self.assignAll(
         TimeData= OriginalData.TimeData,
@@ -31,6 +38,12 @@ class wavData:
         SampleRate= OriginalData.SampleRate,
         FileName=OriginalData.FileName,
         FilePath= OriginalData.FilePath)
+
+    def print(self):
+        print(self.TimeData,self.FFTData,self.freqs,self.SampleRate,self.FileName,self.FilePath)
+    
+    def isNone(self):
+        return self.IsNone
 
 def getDataFromAFile(filePath):
     filePath=filePath[0]

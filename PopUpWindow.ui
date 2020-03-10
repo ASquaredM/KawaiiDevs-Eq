@@ -40,7 +40,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="PlayWidget1Button">
           <property name="text">
            <string>Play</string>
           </property>
@@ -75,7 +75,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="PlayWidget2Button">
           <property name="text">
            <string>Play</string>
           </property>
