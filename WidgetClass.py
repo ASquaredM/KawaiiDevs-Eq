@@ -17,7 +17,7 @@ class PlotWidget:
             self.TimeWidget.plotItem.clear()
             self.TimeWidget.plotItem.plot(Data.TimeData)
             self.FFTWidget.plotItem.clear()
-            self.FFTWidget.plotItem.plot(Data.freqs[range(len(Data.FFTData)//2)],abs(Data.FFTData[range(len(Data.FFTData)//2)]))
+            self.FFTWidget.plotItem.plot(Data.freqs[range(len(Data.FFTData))],abs(Data.FFTData[range(len(Data.FFTData))]))
     def setHidden(self,boolian):
         self.TimeWidget.setHidden(boolian)
         self.FFTWidget.setHidden(boolian)

@@ -1,18 +1,9 @@
 import numpy as np
-"""
-freq = np.arange(20,5000)
-Gains = [1,1,0,1,0,1,0,0,0,0]
-Bands = np.array([[20,40],[40,80],[80,160]
-                    ,[160,300],[300,600],[600,1200]
-                    ,[1200,2400],[2400,5000],[5000,10000]
-                    ,[10000,20000]])
-data = np.arange(20,5000)
-Win_Fn = np.array(['Rectangular','Hamming','Hanning'])
-"""
 
 def WinFn(Win_Fn,freq,Bands,Gains,data):
 <<<<<<< HEAD
     stp = freq[3] - freq[2]
+<<<<<<< HEAD
 =======
     print(freq)
     print(data)
@@ -23,9 +14,15 @@ def WinFn(Win_Fn,freq,Bands,Gains,data):
     if Win_Fn == 'Rectangular':
 <<<<<<< HEAD
         Win_data=Rec_Fn(positiveData,halfOfRange,Bands,Gains,stp)
+=======
+
+    if Win_Fn == 'Rectangular':
+        Win_data=Rec_Fn(data,freq,Bands,Gains,stp)
+>>>>>>> 3e70331... Fina Edits Insha'allah
     elif Win_Fn == 'Hamming':
-        Win_data=Ham_Fn(positiveData,halfOfRange,Bands,Gains,stp)
+        Win_data=Ham_Fn(data,freq,Bands,Gains,stp)
     elif Win_Fn == 'Hanning':
+<<<<<<< HEAD
         Win_data=Han_Fn(positiveData,halfOfRange,Bands,Gains,stp)
     positiveGainedData= Win_data
     zeros=np.zeros(lendata//2,dtype=complex)
@@ -47,6 +44,10 @@ def WinFn(Win_Fn,freq,Bands,Gains,data):
     negativeDataFinal=np.concatenate([zeros,FlippedDate])
     Win_data=positiveDataFinal+negativeDataFinal
 <<<<<<< HEAD
+=======
+        Win_data=Han_Fn(data,freq,Bands,Gains,stp)
+
+>>>>>>> 3e70331... Fina Edits Insha'allah
     return Win_data
 
 def indxl(low,stp,len_freq):
@@ -80,14 +81,16 @@ def indxh(high,stp,len_freq):
 >>>>>>> 41b33545e38247e23b0ed79c74f73cabb631796f
 
 def Rec_Fn(data,freq,Bands,Gains,stp):
-    len_freq = len(freq)
-    Win_data = np.zeros(len_freq,dtype=complex)
+    len_freq = int(len(freq) / 2)
+    Win = np.zeros(0,dtype=complex)
+    Win_data = np.zeros(len(freq),dtype=complex)
     itr_outer = 0
 <<<<<<< HEAD
     while itr_outer < 9:
 <<<<<<< HEAD
 =======
     while itr_outer < 10:
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
@@ -96,17 +99,19 @@ def Rec_Fn(data,freq,Bands,Gains,stp):
         low = indxl(Bands[itr_outer][0],stp,len_freq)
         high = indxh(Bands[itr_outer][1],stp,len_freq)
 >>>>>>> 97feae1... Window Function Fix Fix
+=======
+        low = indxl(Bands[itr_outer][0],stp,len_freq) -1
+        high = indxh(Bands[itr_outer][1],stp,len_freq) -1
+>>>>>>> 3e70331... Fina Edits Insha'allah
         BW = high - low
-        Shaper_Arr_Size = len_freq - high
-        #print('low =' , low)
-        #print('high =' , high)
-        #print('BW =' , BW)
-        #print('Sha =' , Shaper_Arr_Size)
+        Shaper_Arr_Size = 2*(len_freq - high)
         if Shaper_Arr_Size > 0 :
             Shaper_Arr = np.zeros((Shaper_Arr_Size),dtype=complex)
-            Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex),Shaper_Arr),axis=0)
+            Win = np.multiply(np.ones(BW),Gains[itr_outer])
+            Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),Win,Shaper_Arr,Win,np.zeros((low),dtype=complex)),axis=0)
         else:
             BW = len_freq - low
+<<<<<<< HEAD
             #print('BW =' , BW)
             Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),np.ones((BW),dtype=complex)),axis=0)
         Win_data += (Win_Fn_Arr*data*Gains[itr_outer])
@@ -121,14 +126,34 @@ def Rec_Fn(data,freq,Bands,Gains,stp):
             itr_inner+=1
             
         Win_data += np.array(Win_Fn_Arr,dtype=complex)*np.array(data,dtype=complex)*Gains[itr_outer]
+<<<<<<< HEAD
 >>>>>>> 41b33545e38247e23b0ed79c74f73cabb631796f
+=======
+<<<<<<< HEAD
+>>>>>>> 0a4ab1edfc726b41f3687846c427a72ce38badb0
+=======
+<<<<<<< HEAD
+>>>>>>> 0a738d6493cb4c2402a85edda9ffd2d16b032a7b
+=======
+<<<<<<< HEAD
+>>>>>>> 82437c3dd0af84e062f7fefee34c5156a5a14161
+=======
+>>>>>>> dc7530858ef3acd56361880ba1847226e24b2fcc
+=======
+            Win = np.multiply(np.ones(BW),Gains[itr_outer])
+            Win_Fn_Arr = np.concatenate((np.zeros((low),dtype=complex),Win,Win,np.zeros((low),dtype=complex)),axis=0)
+        Win_data += Win_Fn_Arr*data
+>>>>>>> 3e70331... Fina Edits Insha'allah
+>>>>>>> 3cfda49... Fina Edits Insha'allah
+>>>>>>> f143961... Fina Edits Insha'allah
+>>>>>>> 377f2fe... Fina Edits Insha'allah
+>>>>>>> 3af36a0... Fina Edits Insha'allah
         itr_outer += 1
     return Win_data
 
-
 def Ham_Fn(data,freq,Bands,Gains,stp):
-    len_freq = len(freq)
-    Win_data = np.zeros(len_freq,dtype=complex)
+    len_freq = len(freq) / 2
+    Win_data = np.zeros(len(freq),dtype=complex)
     itr_outer = 0
 <<<<<<< HEAD
     out_data = np.zeros(0,dtype=complex)
@@ -136,6 +161,7 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
 <<<<<<< HEAD
 =======
     while itr_outer < 10:
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
@@ -145,13 +171,20 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
         high = indxh(Bands[itr_outer][1],stp,len_freq)
 >>>>>>> 97feae1... Window Function Fix Fix
         Hamm_Arr_Size = 2 * (high - low)
+=======
+        low = indxl(Bands[itr_outer][0],stp,len_freq) -1
+        high = indxh(Bands[itr_outer][1],stp,len_freq) -1
+        Hamm_Arr_Size = (high - low)
+>>>>>>> 3e70331... Fina Edits Insha'allah
         Offset = abs(int((low - ((0.25) * Hamm_Arr_Size))))
         Shaper_Arr = np.zeros(0,dtype=complex)
-        Shaper_Arr_Size = len_freq - Hamm_Arr_Size - Offset
+        Shaper_Arr_Size = int(2*(len_freq - Hamm_Arr_Size - Offset))
+        Win = np.multiply(np.hamming(Hamm_Arr_Size),Gains[itr_outer])
         if Shaper_Arr_Size > 0 :
             Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
-            Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),np.hamming(Hamm_Arr_Size),Shaper_Arr),axis=0),dtype=complex)
+            Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),Win,Shaper_Arr,Win,np.zeros(Offset,dtype=complex)),axis=0),dtype=complex)
         else :
+<<<<<<< HEAD
             Hamm_Arr_Size = len_freq - Offset
             Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hamming(Hamm_Arr_Size)),axis=0),dtype=complex)
         Win_data += data*Hamm_Fn_Arr[0:(len_freq)]*Gains[itr_outer]
@@ -176,19 +209,41 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
         else :
             break
         Win_data += out_data
+<<<<<<< HEAD
 >>>>>>> 41b33545e38247e23b0ed79c74f73cabb631796f
+=======
+<<<<<<< HEAD
+>>>>>>> 0a4ab1edfc726b41f3687846c427a72ce38badb0
+=======
+<<<<<<< HEAD
+>>>>>>> 0a738d6493cb4c2402a85edda9ffd2d16b032a7b
+=======
+<<<<<<< HEAD
+>>>>>>> 82437c3dd0af84e062f7fefee34c5156a5a14161
+=======
+>>>>>>> dc7530858ef3acd56361880ba1847226e24b2fcc
+=======
+            Shaper_indx = len_freq-Offset -1
+            Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),Win[:Shaper_indx],np.flip(Win[:Shaper_indx],np.zeros(Offset))),axis=0),dtype=complex)
+        Win_data += data*Hamm_Fn_Arr
+>>>>>>> 3e70331... Fina Edits Insha'allah
+>>>>>>> 3cfda49... Fina Edits Insha'allah
+>>>>>>> f143961... Fina Edits Insha'allah
+>>>>>>> 377f2fe... Fina Edits Insha'allah
+>>>>>>> 3af36a0... Fina Edits Insha'allah
         itr_outer += 1   
     return Win_data
 
 def Han_Fn(data,freq,Bands,Gains,stp):
-    len_freq = len(freq)
-    Win_data = np.zeros(len_freq,dtype=complex)
+    len_freq = len(freq) / 2
+    Win_data = np.zeros(len(freq),dtype=complex)
     itr_outer = 0
 <<<<<<< HEAD
     while itr_outer < 9:
 <<<<<<< HEAD
 =======
     while itr_outer < 10:
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 4403068... Minor Edits
         low = indxl(Bands[itr_outer][0],stp)
@@ -198,16 +253,22 @@ def Han_Fn(data,freq,Bands,Gains,stp):
         high = indxh(Bands[itr_outer][1],stp,len_freq)
 >>>>>>> 97feae1... Window Function Fix Fix
         Hann_Arr_Size = 2 * (high - low)
+=======
+        low = indxl(Bands[itr_outer][0],stp,len_freq) -1
+        high = indxh(Bands[itr_outer][1],stp,len_freq) -1
+        Hann_Arr_Size = (high - low)
+>>>>>>> 3e70331... Fina Edits Insha'allah
         Offset = abs(int((low - ((0.25) * Hann_Arr_Size))))
         Shaper_Arr = np.zeros(0,dtype=complex)
-        Shaper_Arr_Size = len_freq - Hann_Arr_Size - Offset
+        Shaper_Arr_Size = int(2*(len_freq - Hann_Arr_Size - Offset))
+        Win = np.multiply(np.hanning(Hann_Arr_Size),Gains[itr_outer])
         if Shaper_Arr_Size > 0 :
             Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
-            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),np.hanning(Hann_Arr_Size),Shaper_Arr),axis=0),dtype=complex)
+            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),Win,Shaper_Arr,Win,np.zeros(Offset,dtype=complex)),axis=0),dtype=complex)
         else :
-            Hann_Arr_Size = len_freq - Offset
-            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hanning(Hann_Arr_Size)),axis=0),dtype=complex)
-        Win_data += data*Hann_Fn_Arr[0:(len_freq)]*Gains[itr_outer]
+            Shaper_indx = len_freq-Offset -1
+            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),Win[:Shaper_indx],np.flip(Win[:Shaper_indx],np.zeros(Offset))),axis=0),dtype=complex)
+        Win_data += data*Hann_Fn_Arr
         itr_outer += 1   
 =======
         if (Bands[itr_outer][0] and Bands[itr_outer][1]) in freq:
@@ -234,8 +295,6 @@ def Han_Fn(data,freq,Bands,Gains,stp):
         
 >>>>>>> 41b33545e38247e23b0ed79c74f73cabb631796f
     return Win_data
-
-
 
 """
 Bass:

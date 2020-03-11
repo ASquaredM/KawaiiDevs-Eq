@@ -65,6 +65,7 @@ from WidgetClass import PlotWidget
 
 #Init a gain for each band
 <<<<<<< HEAD
+<<<<<<< HEAD
 Gains = [0,0,0,0,0,0,0,0,0,0]
 =======
 Gains = np.ones(10)
@@ -72,18 +73,23 @@ Gains = np.ones(10)
 >>>>>>> ef09d7a... PopUp Functions
 =======
 >>>>>>> 71640f8... Update
+<<<<<<< HEAD
 >>>>>>> db22d41947c05507ef56f72bd45f69a74a8272a6
+=======
+>>>>>>> ba9f4497a9c2ba8dfae225e4496296abdcc01b8e
+=======
+Gains = np.ones(10,dtype=complex)
+>>>>>>> 377f2fe... Fina Edits Insha'allah
+>>>>>>> 3af36a0... Fina Edits Insha'allah
 
 #Freq. Spectrum Division (Setting Bands)
-Bands = np.array([[20,2000],[2000,4000],[4000,6000]
+Bands = np.array(([[20,2000],[2000,4000],[4000,6000]
                     ,[6000,8000],[8000,10000],[10000,12000]
                     ,[12000,14000],[14000,16000],[16000,18000]
-                    ,[18000,22000]])
-"""Bands = np.array([[20,40],[40,80],[80,160]
-                    ,[160,300],[300,600],[600,1200]
-                    ,[1200,2400],[2400,5000],[5000,10000]
-                    ,[10000,20000]])"""
+                    ,[18000,20000]]),dtype=complex)
+
 DataBox=np.array(['Original Data','Main Data','Quick Save 1',"Quick Save 2"])
+
 #Supported Window Functions
 Win_Fn = np.array(['Rectangular','Hamming','Hanning'])
 
@@ -513,7 +519,6 @@ class ApplicationWindow(UI.Ui_MainWindow):
 >>>>>>> 7bff587... Adding Better UX
     def edittingSliderValue(self,numberOfBand): 
         Gains[numberOfBand] = self.sliders[numberOfBand].value()/50
-        print(Gains)
 
 <<<<<<< HEAD
 =======
@@ -535,12 +540,15 @@ class ApplicationWindow(UI.Ui_MainWindow):
         newTimeData=np.real(fftpk.ifft(newFFTdata))
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.MainData.assignAll(FFTData=newFFTdata)
 >>>>>>> c5635df... improving modularity adding new bugs to fux later
 =======
 =======
         print(newTimeData,newFFTdata)
 >>>>>>> 8e7ab62... Fixing Bugs and addding new Bugs
+=======
+>>>>>>> 377f2fe... Fina Edits Insha'allah
         self.MainData.assignAll(FFTData=newFFTdata,TimeData=newTimeData)
 >>>>>>> b24534a... solving new Bugs
         self.graphMainData()
