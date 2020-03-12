@@ -6,14 +6,15 @@ from WidgetClass import PlotWidget
 import sounddevice as sd
 class Ui_PopUpWindow(UI.Ui_MainWindow):
     def __init__(self,mainWindow, Data1,Data2):
+        self.mainWindow= mainWindow
         super(Ui_PopUpWindow,self).setupUi(mainWindow)
         def closeEvent(Event):
             sd.stop()
             Event.accept()
-        mainWindow.closeEvent = closeEvent
+        self.mainWindow.closeEvent = closeEvent
         print(Data1.isNone(),Data2.isNone())
-        if Data1.isNone() or Data2.isNone():
-            mainWindow.close()
+        if (Data1.isNone() or Data2.isNone()) :
+            self.mainWindow.close()
         
         CompareTimeData=Data1.TimeData-Data2.TimeData
         CompareFFTData=Data1.FFTData-Data2.FFTData

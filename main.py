@@ -381,11 +381,22 @@ class ApplicationWindow(UI.Ui_MainWindow):
         print("Opening a new popup window...")
         indexOfData1=self.Data1ComboBox.currentIndex()
         indexOfData2=self.Data2ComboBox.currentIndex()
+<<<<<<< HEAD
         self.mainWindow=QtWidgets.QMainWindow()
         self.PopUp = Ui_PopUpWindow(self.mainWindow,self.Data[indexOfData1],self.Data[indexOfData2])
         self.mainWindow.show()
 >>>>>>> b24534a... solving new Bugs
+<<<<<<< HEAD
 >>>>>>> a1ee32b... solving new Bugs
+=======
+=======
+        print(self.Data[indexOfData2].isNone(), self.Data[indexOfData1].isNone())
+        if self.Data[indexOfData1].isNone() is False and self.Data[indexOfData2].isNone() is False:
+            self.mainWindow=QtWidgets.QMainWindow()
+            self.PopUp = Ui_PopUpWindow(self.mainWindow,self.Data[indexOfData1],self.Data[indexOfData2])
+            self.mainWindow.show()
+>>>>>>> 3ce0ff9... Final Commit
+>>>>>>> ea3690e... Final Commit
 
     def sliderInitialization(self):
         self.sliders=[

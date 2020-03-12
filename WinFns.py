@@ -174,16 +174,21 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
 =======
         low = indxl(Bands[itr_outer][0],stp,len_freq) -1
         high = indxh(Bands[itr_outer][1],stp,len_freq) -1
+<<<<<<< HEAD
         Hamm_Arr_Size = (high - low)
 >>>>>>> 3e70331... Fina Edits Insha'allah
+=======
+        Hamm_Arr_Size = int(2*(high - low))
+>>>>>>> c60ef45... Final Commit
         Offset = abs(int((low - ((0.25) * Hamm_Arr_Size))))
         Shaper_Arr = np.zeros(0,dtype=complex)
         Shaper_Arr_Size = int(2*(len_freq - Hamm_Arr_Size - Offset))
         Win = np.multiply(np.hamming(Hamm_Arr_Size),Gains[itr_outer])
         if Shaper_Arr_Size > 0 :
             Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
-            Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),Win,Shaper_Arr,Win,np.zeros(Offset,dtype=complex)),axis=0),dtype=complex)
+            Hamm_Fn_Arr = np.concatenate((np.zeros(Offset,dtype=complex),Win,Shaper_Arr,Win,np.zeros(Offset,dtype=complex)),axis=0)
         else :
+<<<<<<< HEAD
 <<<<<<< HEAD
             Hamm_Arr_Size = len_freq - Offset
             Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),np.hamming(Hamm_Arr_Size)),axis=0),dtype=complex)
@@ -225,6 +230,10 @@ def Ham_Fn(data,freq,Bands,Gains,stp):
 =======
             Shaper_indx = len_freq-Offset -1
             Hamm_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),Win[:Shaper_indx],np.flip(Win[:Shaper_indx],np.zeros(Offset))),axis=0),dtype=complex)
+=======
+            Shaper_indx = int(len_freq - Offset)
+            Hamm_Fn_Arr = np.concatenate((np.zeros(Offset),Win[:Shaper_indx],np.flip(Win[:Shaper_indx]),np.zeros(Offset)),axis=0)
+>>>>>>> c60ef45... Final Commit
         Win_data += data*Hamm_Fn_Arr
 >>>>>>> 3e70331... Fina Edits Insha'allah
 >>>>>>> 3cfda49... Fina Edits Insha'allah
@@ -256,18 +265,22 @@ def Han_Fn(data,freq,Bands,Gains,stp):
 =======
         low = indxl(Bands[itr_outer][0],stp,len_freq) -1
         high = indxh(Bands[itr_outer][1],stp,len_freq) -1
+<<<<<<< HEAD
         Hann_Arr_Size = (high - low)
 >>>>>>> 3e70331... Fina Edits Insha'allah
+=======
+        Hann_Arr_Size = int(2*(high - low))
+>>>>>>> c60ef45... Final Commit
         Offset = abs(int((low - ((0.25) * Hann_Arr_Size))))
         Shaper_Arr = np.zeros(0,dtype=complex)
         Shaper_Arr_Size = int(2*(len_freq - Hann_Arr_Size - Offset))
         Win = np.multiply(np.hanning(Hann_Arr_Size),Gains[itr_outer])
         if Shaper_Arr_Size > 0 :
             Shaper_Arr = np.zeros(Shaper_Arr_Size,dtype=complex)
-            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset,dtype=complex),Win,Shaper_Arr,Win,np.zeros(Offset,dtype=complex)),axis=0),dtype=complex)
+            Hann_Fn_Arr = np.concatenate((np.zeros(Offset,dtype=complex),Win,Shaper_Arr,Win,np.zeros(Offset,dtype=complex)),axis=0)
         else :
-            Shaper_indx = len_freq-Offset -1
-            Hann_Fn_Arr = np.array(np.concatenate((np.zeros(Offset),Win[:Shaper_indx],np.flip(Win[:Shaper_indx],np.zeros(Offset))),axis=0),dtype=complex)
+            Shaper_indx = int(len_freq-Offset)
+            Hann_Fn_Arr = np.concatenate((np.zeros(Offset),Win[:Shaper_indx],np.flip(Win[:Shaper_indx]),np.zeros(Offset)),axis=0)
         Win_data += data*Hann_Fn_Arr
         itr_outer += 1   
 =======
