@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -100,5 +101,6 @@ class Ui_MainWindow(object):
         self.Data2StopButton.setText(_translate("MainWindow", "Stop"))
         self.ComparePlayButton.setText(_translate("MainWindow", "Play"))
         self.CompareStopButton.setText(_translate("MainWindow", "Stop"))
+
 
 from pyqtgraph import PlotWidget

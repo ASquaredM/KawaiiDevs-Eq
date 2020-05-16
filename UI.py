@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -190,7 +191,8 @@ class Ui_MainWindow(object):
         self.ResetButton.setObjectName("ResetButton")
         self.verticalLayout_3.addWidget(self.ResetButton)
         self.CompareToOpenedDataButton = QtWidgets.QPushButton(self.Equalizer)
-        self.CompareToOpenedDataButton.setObjectName("CompareToOpenedDataButton")
+        self.CompareToOpenedDataButton.setObjectName(
+            "CompareToOpenedDataButton")
         self.verticalLayout_3.addWidget(self.CompareToOpenedDataButton)
         self.label_12 = QtWidgets.QLabel(self.Equalizer)
         self.label_12.setMaximumSize(QtCore.QSize(200, 20))
@@ -369,18 +371,28 @@ class Ui_MainWindow(object):
         self.label_16.setText(_translate("MainWindow", "Saved Data 2"))
         self.SavedData2PlayButton.setText(_translate("MainWindow", "Play"))
         self.SavedData2StopButton.setText(_translate("MainWindow", "Stop"))
-        self.Data1ComboBox.setItemText(0, _translate("MainWindow", "Original Data"))
-        self.Data1ComboBox.setItemText(1, _translate("MainWindow", "Main Data"))
-        self.Data1ComboBox.setItemText(2, _translate("MainWindow", "Quick Save 1"))
-        self.Data1ComboBox.setItemText(3, _translate("MainWindow", "Quick Save 2"))
+        self.Data1ComboBox.setItemText(
+            0, _translate("MainWindow", "Original Data"))
+        self.Data1ComboBox.setItemText(1, _translate("MainWindow",
+                                                     "Main Data"))
+        self.Data1ComboBox.setItemText(
+            2, _translate("MainWindow", "Quick Save 1"))
+        self.Data1ComboBox.setItemText(
+            3, _translate("MainWindow", "Quick Save 2"))
         self.CompareToButton.setText(_translate("MainWindow", "Compare to"))
-        self.Data2ComboBox.setItemText(0, _translate("MainWindow", "Original Data"))
-        self.Data2ComboBox.setItemText(1, _translate("MainWindow", "Main Data"))
-        self.Data2ComboBox.setItemText(2, _translate("MainWindow", "Quick Save 1"))
-        self.Data2ComboBox.setItemText(3, _translate("MainWindow", "Quick Save 2"))
-        self.TabViews.setTabText(self.TabViews.indexOf(self.SignalViewer), _translate("MainWindow", "Signals Viewer"))
+        self.Data2ComboBox.setItemText(
+            0, _translate("MainWindow", "Original Data"))
+        self.Data2ComboBox.setItemText(1, _translate("MainWindow",
+                                                     "Main Data"))
+        self.Data2ComboBox.setItemText(
+            2, _translate("MainWindow", "Quick Save 1"))
+        self.Data2ComboBox.setItemText(
+            3, _translate("MainWindow", "Quick Save 2"))
+        self.TabViews.setTabText(self.TabViews.indexOf(self.SignalViewer),
+                                 _translate("MainWindow", "Signals Viewer"))
         self.ResetButton.setText(_translate("MainWindow", "Reset"))
-        self.CompareToOpenedDataButton.setText(_translate("MainWindow", "Comare with Original Data"))
+        self.CompareToOpenedDataButton.setText(
+            _translate("MainWindow", "Comare with Original Data"))
         self.label_12.setText(_translate("MainWindow", "Save Mode:"))
         self.SaveMode.setItemText(0, _translate("MainWindow", "To A File"))
         self.SaveMode.setItemText(1, _translate("MainWindow", "QuickSave1"))
@@ -390,7 +402,8 @@ class Ui_MainWindow(object):
         self.WindowMode.setItemText(0, _translate("MainWindow", "Rectangular"))
         self.WindowMode.setItemText(1, _translate("MainWindow", "Hamming"))
         self.WindowMode.setItemText(2, _translate("MainWindow", "Hanning"))
-        self.ApplyEqualizerButton.setText(_translate("MainWindow", "Apply Equalizer"))
+        self.ApplyEqualizerButton.setText(
+            _translate("MainWindow", "Apply Equalizer"))
         self.label.setText(_translate("MainWindow", "20 Hz-2 KHz"))
         self.label_5.setText(_translate("MainWindow", "2 KHz-4 KHz"))
         self.label_6.setText(_translate("MainWindow", "4 KHz-6 KHz"))
@@ -401,6 +414,8 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "14 KHz-16 KHz"))
         self.label_7.setText(_translate("MainWindow", "16 KHz-18 KHz"))
         self.label_3.setText(_translate("MainWindow", "18 KHz-22 KHz"))
-        self.TabViews.setTabText(self.TabViews.indexOf(self.Equalizer), _translate("MainWindow", "Equalizer"))
+        self.TabViews.setTabText(self.TabViews.indexOf(self.Equalizer),
+                                 _translate("MainWindow", "Equalizer"))
+
 
 from pyqtgraph import PlotWidget
